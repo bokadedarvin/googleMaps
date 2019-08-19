@@ -1,4 +1,5 @@
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { CommonLayoutComponent } from 'src/app/layout/common-layout/common-layout.component';
 
 export const CommonRoutes: Routes = [
   {
@@ -11,7 +12,11 @@ export const CommonRoutes: Routes = [
     loadChildren: () => import('../../pages/home/home.module').then(m => m.HomePageModule)
   },
   {
-    path: 'list',
-    loadChildren: () => import('../../pages/list/list.module').then(m => m.ListPageModule)
+    path: 'route-create',
+    loadChildren: () => import('../../pages/route-create/route-create.module').then(m => m.RouteCreatePageModule)
+  },
+  {
+    path: 'route-view',
+    loadChildren: () => import('../../pages/route-view/route-view.module').then(m => m.RouteViewPageModule)
   }
 ];

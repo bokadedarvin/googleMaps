@@ -1,0 +1,44 @@
+<ion-content>
+    <form [formGroup]="registerationForm" (ngSubmit)="register(form)">
+      <ion-grid>
+        <ion-row justify-content-center>
+          <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
+            <div text-center>
+              <h3>Create your account!</h3>
+            </div>
+            <div padding>
+              <ion-item>
+                <ion-label position="fixed">First Name</ion-label>
+                <ion-input  name="FirstName" type="text" placeholder="First Name" formControlName="FirstName" required></ion-input>
+              </ion-item>
+              <ion-label color="danger" *ngIf="registerationForm.controls.FirstName.invalid && registerationForm.controls.FirstName.dirty">{{getErrorMessage('FirstName')}}</ion-label>
+              <ion-item>
+                <ion-label position="fixed">Last Name</ion-label>
+                <ion-input  name="LastName" type="text" placeholder="LastName" formControlName="LastName" required></ion-input>
+              </ion-item>
+              <ion-label color="danger" *ngIf="registerationForm.controls.LastName.invalid && registerationForm.controls.LastName.dirty">{{getErrorMessage('LastName')}}</ion-label>
+              <ion-item>
+                <ion-label position="fixed">Email</ion-label>
+                <ion-input name="EmailAddress" type="email" placeholder="your@email.com" formControlName="EmailAddress" required></ion-input>
+              </ion-item>
+              <ion-label color="danger" *ngIf="registerationForm.controls.EmailAddress.invalid && registerationForm.controls.EmailAddress.dirty">{{getErrorMessage('EmailAddress')}}</ion-label>
+              <ion-item>
+                <ion-label position="fixed">Password</ion-label>
+                <ion-input name="Password" type="password" placeholder="Password" formControlName="Password" required></ion-input>
+              </ion-item>
+              <ion-label color="danger" *ngIf="registerationForm.controls.Password.invalid && registerationForm.controls.Password.dirty">{{getErrorMessage('Password')}}</ion-label>
+              <ion-item>
+                <ion-label position="fixed">Confirm Password</ion-label>
+                <ion-input name="ConfirmPassword" type="password" placeholder="Confirm Password" formControlName="ConfirmPassword" required></ion-input>
+              </ion-item>
+              <ion-label color="danger" *ngIf="registerationForm.controls.ConfirmPassword.invalid && registerationForm.controls.ConfirmPassword.dirty">{{getErrorMessage('ConfirmPassword')}}</ion-label>
+            </div>
+            <div padding>
+              <ion-button type="submit" [disabled]="registerationForm.invalid">Register</ion-button><br>
+              <a type="button" routerLink="/login" expand="block">Already Registered..!</a>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </form>
+  </ion-content>

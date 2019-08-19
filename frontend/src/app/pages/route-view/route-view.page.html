@@ -1,0 +1,31 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>
+        Google Maps Crossover Integration
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content>
+      <ion-card class="welcome-card"> 
+        <ion-card-content> 
+            <agm-map [latitude]="latitude" [longitude]="longitude" [scrollwheel]="false" [zoom]="zoom">
+                <ng-container>
+                  <agm-polyline *ngFor="let polyline of polylines;let i = index;"  [strokeColor]="polyline.color">
+                    <agm-marker *ngFor="let place of polyline.path; let i = index"
+                       [latitude]="place.latitude" 
+                       [longitude]="place.longitude">
+                       <agm-info-window>{{i+1}} - {{place | json}}</agm-info-window>
+                    </agm-marker>
+                    <agm-polyline-point *ngFor="let point of polyline.path" [latitude]="point.latitude" [longitude]="point.longitude">
+                    </agm-polyline-point>
+                 </agm-polyline>
+               </ng-container>
+             </agm-map>
+        </ion-card-content>
+      </ion-card> 
+  </ion-content>
+  

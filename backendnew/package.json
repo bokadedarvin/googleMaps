@@ -19,7 +19,7 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "start:webpack": "node dist/server",
     "webpack": "webpack --config webpack.config.js",
-    "watch": "npm run webpack && node dist/server"
+    "watch": "npm run webpack & node dist/server"
   },
   "dependencies": {
     "@nestjs/common": "^6.0.0",
