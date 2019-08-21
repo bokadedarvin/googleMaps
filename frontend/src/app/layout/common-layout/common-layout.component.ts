@@ -27,7 +27,7 @@ export class CommonLayoutComponent implements OnInit {
     {
       title: 'User History',
       url: '/user-history',
-      icon: 'navigate'
+      icon: 'stats'
     },
     // {
     //   title: 'Route Create',
