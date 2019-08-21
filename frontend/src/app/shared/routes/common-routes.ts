@@ -12,12 +12,20 @@ export const CommonRoutes: Routes = [
     loadChildren: () => import('../../pages/home/home.module').then(m => m.HomePageModule)
   },
   {
+    path: 'user-dashboard',
+    loadChildren: () => import('../../pages/user-dashboard/user-dashboard.module').then(m => m.UserDashboardPageModule)
+  },
+  {
     path: 'places',
     loadChildren: () => import('../../pages/places/places.module').then(m => m.PlacesPageModule)
   },
   {
     path: 'route-create',
     loadChildren: () => import('../../pages/route-create/route-create.module').then(m => m.RouteCreatePageModule)
+  },
+  {
+    path: 'user-history',
+    loadChildren: () => import('../../pages/user-history/user-history.module').then(m => m.UserHistoryPageModule)
   },
   {
     path: 'route-view',

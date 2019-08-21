@@ -15,8 +15,18 @@ export class CommonLayoutComponent implements OnInit {
       icon: 'home'
     },
     {
+      title: 'Dashboard',
+      url: '/user-dashboard',
+      icon: 'speedometer'
+    },
+    {
       title: 'Places',
       url: '/places',
+      icon: 'navigate'
+    },
+    {
+      title: 'User History',
+      url: '/user-history',
       icon: 'navigate'
     },
     // {
@@ -30,7 +40,7 @@ export class CommonLayoutComponent implements OnInit {
     //   icon: 'eye'
     // },
     {
-      title: 'Logut',
+      title: 'Log-Out',
       url: '/login',
       icon: 'log-out'
     }

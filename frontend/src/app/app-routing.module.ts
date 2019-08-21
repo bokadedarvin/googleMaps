@@ -23,6 +23,10 @@ const routes: Routes = [
     children: FullLayoutRoutes
 
   },
+  // { path: 'user-history', loadChildren: './pages/user-history/user-history.module#UserHistoryPageModule' },
+
+  // { path: 'user-dashboard', loadChildren: './pages/user-dashboard/user-dashboard.module#UserDashboardPageModule' },
+
   // { path: 'places', loadChildren: './pages/places/places.module#PlacesPageModule' },
 
   // { path: 'route-view', loadChildren: './pages/route-view/route-view.module#RouteViewPageModule' },

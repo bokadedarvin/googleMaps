@@ -1,0 +1,58 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      User Dashboard
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content> 
+  <form [formGroup]="searchForm" (ngSubmit)="searchRoute(form)">
+    <ion-card> 
+      <ion-card-content> 
+          <ion-item>
+            <ion-label position="floating">From</ion-label>
+            <ion-input name="From" type="text" formControlName="From" required>
+            </ion-input>
+          </ion-item>
+          <ion-label color="danger" *ngIf="searchForm.controls.From.invalid && searchForm.controls.From.dirty">{{getErrorMessage('From')}}</ion-label>
+          <ion-item>
+            <ion-label position="floating">To</ion-label>
+            <ion-input name="To" type="text" formControlName="To" required></ion-input>
+          </ion-item>
+          <ion-label color="danger" *ngIf="searchForm.controls.To.invalid && searchForm.controls.To.dirty">{{getErrorMessage('To')}}</ion-label>
+          <div class="ion-padding-top">
+            <ion-list>
+              <ion-item *ngFor="let placeType of placeTypes">
+                <ion-label>{{placeType.name}}</ion-label>
+                <ion-checkbox (ionChange)="addCheckbox($event,placeType.value)" slot="end"></ion-checkbox>
+              </ion-item>
+            </ion-list>
+          </div>
+          <div class="ion-padding-top">
+            <ion-button type="submit" [disabled]="searchForm.invalid">Search Path</ion-button>
+          </div>    
+        </ion-card-content>
+      </ion-card> 
+    </form> 
+    <ion-card class="welcome-card">  
+      <ion-card-content>
+        <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
+            <ng-container>
+              <agm-polyline [strokeColor]="blue">
+                <agm-marker *ngFor="let place of polyline; let i = index"
+                    [latitude]="place.latitude" 
+                    [longitude]="place.longitude">
+                    <agm-info-window>{{i+1}} - {{place | json}}</agm-info-window>
+                </agm-marker>
+                <agm-polyline-point *ngFor="let point of polyline" [latitude]="point.latitude" [longitude]="point.longitude">
+                  </agm-polyline-point>
+              </agm-polyline>
+            </ng-container>
+        </agm-map>
+      </ion-card-content>
+    </ion-card> 
+</ion-content>

@@ -4,7 +4,7 @@
         <ion-menu-button></ion-menu-button>
       </ion-buttons>
       <ion-title>
-        Google Maps Crossover Integration
+        Route
       </ion-title>
     </ion-toolbar>
   </ion-header>
@@ -14,7 +14,7 @@
         <ion-card-content> 
             <agm-map [latitude]="latitude" [longitude]="longitude" [scrollwheel]="false" [zoom]="zoom">
                 <ng-container>
-                  <agm-polyline *ngFor="let polyline of polylines;let i = index;"  [strokeColor]="polyline.color">
+                  <agm-polyline *ngFor="let polyline of polylines;let i = index;" [strokeColor]="polyline.color">
                     <agm-marker *ngFor="let place of polyline.path; let i = index"
                        [latitude]="place.latitude" 
                        [longitude]="place.longitude">
