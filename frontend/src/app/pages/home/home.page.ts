@@ -12,11 +12,11 @@ export class HomePage implements OnInit {
   lng: number = 7.809007;
 
   public latitude: number;
-  public longitude: number;
-  public maxSpeed: number;
-  public zoom: number;
+  public longitude: number; 
+  public zoom: number; 
+  public noOfUsers: number; 
+  public noOfMarkers: number; 
   public polyline: Array<any>;
-  public polylines: Array<any>;
 
   constructor(
     private mapsAPILoader: MapsAPILoader,
@@ -24,85 +24,44 @@ export class HomePage implements OnInit {
 
   ngOnInit() {
     //set google maps defaults
-    this.zoom = 3;
-    this.maxSpeed = 40;
-    this.latitude = 21.291;
-    this.longitude = -122.214;
+    this.zoom = 10; 
+    this.latitude = 28.955317;
+    this.longitude = 77.702681; 
+    this.noOfUsers = 15; 
+    this.noOfMarkers = 89; 
 
     this.polyline = [
-        {
-            latitude:  39.8282,
-            longitude: -98.5795,
-            speed: 50
-        },
-         {
-            latitude:  38.8282,
-            longitude: -108.5795,
-            speed: 50
-        },
-        {
-            latitude: 37.772,
-            longitude: -122.214,
-            speed: 20
-        },
-        {
-            latitude: 21.291,
-            longitude: -157.821,
-             speed: 20
-        },
-        {
-            latitude: -18.142,
-            longitude: 178.431,
-            speed: 20
-        },
-        {
-            latitude: -27.467,
-            longitude: 153.027,
-            speed: 25
-        }
-    ]
-    this.polylines = this.rebuildPolylines();
- 
-    
-    //set current position
-    // this.setCurrentPosition();
-    
-    //load Places Autocomplete
-    // this.mapsAPILoader.load().then(() => {
-
-    // });
-  }
-
-  private rebuildPolylines() {
-    let polylines = [];
-    let i = 0;
-    let newPolyline = {path: [], color: 'blue'};
-    for (let point of this.polyline) {
-      console.log(point)
-      newPolyline.path.push(point);
-      const speedChanged = this.polyline[i+1] && (point.speed < this.maxSpeed && this.polyline[i+1].speed < this.maxSpeed) ||(point.speed > this.maxSpeed && this.polyline[i+1].speed > this.maxSpeed )
-      if (point.speed > this.maxSpeed) {
-        newPolyline.color = 'red';
+      {
+          latitude:  28.955317,
+          longitude: 77.702681,
+          speed: 50
+      },
+       {
+          latitude:  28.955217,
+          longitude: 77.702481,
+          speed: 50
+      },
+      {
+          latitude: 28.986454,
+          longitude: 77.683607,
+          speed: 20
+      },
+      {
+          latitude: 28.998466,
+          longitude: 77.660271,
+           speed: 20
+      },
+      {
+          latitude: 29.020867,
+          longitude: 77.669704,
+          speed: 20
+      },
+      {
+          latitude: 29.027922,
+          longitude: 77.645167,
+          speed: 25
       }
-      if (speedChanged) {
-        newPolyline.path.push( this.polyline[i+1] );
-        polylines.push(newPolyline);
-        newPolyline = {path: [], color: 'blue'};
-      }
-      i++;
-    }
-    console.log(polylines);
-    return polylines;
-    
-  }
-  private setCurrentPosition() {
-    if ("geolocation" in navigator) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        this.latitude = position.coords.latitude;
-        this.longitude = position.coords.longitude;
-        this.zoom = 12;
-      });
-    }
-  }
+  ]
+  } 
 
 }

@@ -15,14 +15,39 @@ export class RouteCreatePage implements OnInit {
   longitude: number;
   zoom:number;
   marker = {};
-  places = []
+  places = [];
+  placeTypes = [];
   
   constructor(private router: Router) { }
 
   ngOnInit() { 
+    
     this.zoom = 18;
-
+     
+    this.placeTypes = [
+      {
+        name : 'Cafeteria',
+        value : 'cafeteria',
+      },
+      {
+        name : 'Library',
+        value : 'library',
+      },
+      {
+        name : 'Class Room',
+        value : 'classroom',
+      },
+      {
+        name : 'Office',
+        value : 'office',
+      },
+      {
+        name : 'Play Ground',
+        value : 'playground',
+      },
+    ]
     this.placeCreateForm = new FormGroup({
+      Name: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z0-9 -.,]*$')]),
       Description: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z0-9 -.,]*$')]),
       Type: new FormControl('', [Validators.required]),
     });
@@ -31,6 +56,9 @@ export class RouteCreatePage implements OnInit {
   getErrorMessage(formControl) {
     let errorMessage;
     switch (formControl) {
+      case 'Name':
+        errorMessage = this.placeCreateForm.controls[formControl].hasError('pattern') ? 'Please enter valid name' : 'Please enter name';
+        break;
       case 'Description':
         errorMessage = this.placeCreateForm.controls[formControl].hasError('pattern') ? 'Please enter valid description' : 'Please enter description';
         break;
@@ -43,17 +71,24 @@ export class RouteCreatePage implements OnInit {
   }
 
   addPlaces(){
-    this.marker = {
-      latitude : 28.946091,
-      longitude : 77.718811,
-      description : this.placeCreateForm.value.Description,
-      type : this.placeCreateForm.value.Type,
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.latitude = position.coords.latitude;
+        this.longitude = position.coords.longitude; 
+        this.marker = {
+          latitude : this.latitude,
+          longitude : this.longitude,
+          name : this.placeCreateForm.value.Name,
+          description : this.placeCreateForm.value.Description,
+          type : this.placeCreateForm.value.Type,
+        }
+        console.log( this.marker)
+        this.places.push( this.marker ); 
+        this.placeCreateForm.reset();
+      });
     }
-    this.places.push( this.marker );
-    this.latitude = this.places[0].latitude;
-    this.longitude = this.places[0].longitude;
-    this.placeCreateForm.reset();
-  }
+    
+  } 
   
   submitRoute(){//CALL SUBMIT API
     if( this.places.length !== 0 ){

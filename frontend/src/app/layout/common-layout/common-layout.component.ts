@@ -15,15 +15,20 @@ export class CommonLayoutComponent implements OnInit {
       icon: 'home'
     },
     {
-      title: 'Route Create',
-      url: '/route-create',
+      title: 'Places',
+      url: '/places',
       icon: 'navigate'
     },
-    {
-      title: 'Route View',
-      url: '/route-view',
-      icon: 'eye'
-    },
+    // {
+    //   title: 'Route Create',
+    //   url: '/route-create',
+    //   icon: 'navigate'
+    // },
+    // {
+    //   title: 'Route View',
+    //   url: '/route-view',
+    //   icon: 'eye'
+    // },
     {
       title: 'Logut',
       url: '/login',

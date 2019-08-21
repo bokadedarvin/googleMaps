@@ -1,0 +1,30 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>
+        Places
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content> 
+      <ion-card class="welcome-card"> 
+        <ion-card-content>  
+            <ion-list class="ion-text-end"> 
+                <ion-button color="primary" routerLink="/route-create"><ion-icon name="add"></ion-icon> Add Place</ion-button>
+            </ion-list>
+            <ion-list>
+              <ion-item *ngFor="let place of places;let i = index;">
+                <ion-label>{{i+1}}. - {{place.name}} - {{place.description}} - {{place.placeType}}</ion-label>
+                <ion-label class="ion-text-end">
+                    <ion-button color="warning"><ion-icon name="create"></ion-icon></ion-button>
+                    <ion-button color="danger"><ion-icon name="trash"></ion-icon></ion-button> 
+                </ion-label>
+              </ion-item> 
+            </ion-list>
+        </ion-card-content>
+      </ion-card> 
+  </ion-content>
+  

@@ -12,6 +12,10 @@ export const CommonRoutes: Routes = [
     loadChildren: () => import('../../pages/home/home.module').then(m => m.HomePageModule)
   },
   {
+    path: 'places',
+    loadChildren: () => import('../../pages/places/places.module').then(m => m.PlacesPageModule)
+  },
+  {
     path: 'route-create',
     loadChildren: () => import('../../pages/route-create/route-create.module').then(m => m.RouteCreatePageModule)
   },

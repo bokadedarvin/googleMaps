@@ -4,35 +4,39 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>
-      Google Maps Crossover Integration
+      Add Places
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
     <ion-card class="welcome-card"> 
-      <ion-card-header>
-        <ion-card-title>Welcome to Google Google Maps</ion-card-title>
-        <ion-card-subtitle>Introduce yourself with the experience of different Google Maps Integration</ion-card-subtitle>
+      <ion-card-header> 
+          <ion-list class="ion-text-end"> 
+              <ion-button color="danger" routerLink="/places"><ion-icon name="arrow-round-back"></ion-icon> Back</ion-button>
+          </ion-list>
         <form [formGroup]="placeCreateForm" (ngSubmit)="addPlaces(form)">
+            <ion-item>
+              <ion-label position="floating">Place Name</ion-label>
+              <ion-input name="Description" formControlName="Name" required></ion-input>
+            </ion-item>
+            <ion-label color="danger" *ngIf="placeCreateForm.controls.Name.invalid && placeCreateForm.controls.Name.dirty">{{getErrorMessage('Name')}}</ion-label>
           <ion-item>
-            <ion-label position="fixed">Place Description</ion-label>
-            <ion-input name="Description" placeholder="Enter Place Description" formControlName="Description" required></ion-input>
+            <ion-label position="floating">Place Description</ion-label>
+            <ion-input name="Description" formControlName="Description" required></ion-input>
           </ion-item>
           <ion-label color="danger" *ngIf="placeCreateForm.controls.Description.invalid && placeCreateForm.controls.Description.dirty">{{getErrorMessage('Description')}}</ion-label>
           <ion-item>
-            <ion-label position="fixed">Place Type</ion-label>
-            <ion-select name="Type" placeholder="Select One" formControlName="Type" required>
-              <ion-select-option value="cafeteria">Cafeteria</ion-select-option>
-              <ion-select-option value="library">Library</ion-select-option>
-              <ion-select-option value="classroom">Classroom</ion-select-option>
-              <ion-select-option value="office">Office</ion-select-option>
-              <ion-select-option value="playground">Play Ground</ion-select-option>
+            <ion-label position="floating">Place Type</ion-label>
+            <ion-select name="Type" formControlName="Type" required>
+              <ion-select-option *ngFor="let placeType of placeTypes" [value]="placeType.value">{{placeType.name}}</ion-select-option>
             </ion-select>
           </ion-item> 
-          <ion-label color="danger" *ngIf="placeCreateForm.controls.Type.invalid && placeCreateForm.controls.Type.dirty">{{getErrorMessage('Type')}}</ion-label>
-          <ion-button type="submit" color="primary" [disabled]="placeCreateForm.invalid">Add Place</ion-button>
-          <ion-button color="primary" (click)='submitRoute();'>Submit Route</ion-button>
+          <div class="ion-padding-top">
+            <ion-label color="danger" *ngIf="placeCreateForm.controls.Type.invalid && placeCreateForm.controls.Type.dirty">{{getErrorMessage('Type')}}</ion-label>
+            <ion-button type="submit" color="primary" [disabled]="placeCreateForm.invalid"><ion-icon name="add"></ion-icon> Add Place</ion-button>
+            <ion-button color="primary" [disabled]="this.places.length==0" (click)='submitRoute();'><ion-icon name="send"></ion-icon> Submit Route</ion-button>
+          </div>
         </form>
       </ion-card-header>
       <ion-card-content> 
@@ -40,9 +44,11 @@
             [latitude]="latitude" 
             [longitude]="longitude" 
             [zoom]="zoom" >
-              <agm-marker *ngFor="let place of places"
+              <agm-marker *ngFor="let place of places; let i = index"
               [latitude]="place.latitude" 
-              [longitude]="place.longitude"></agm-marker> 
+              [longitude]="place.longitude">
+              <agm-info-window>{{i+1}} - {{place.name}} - {{place.description}} - {{place.type}}</agm-info-window>
+            </agm-marker> 
             </agm-map>
       </ion-card-content>
     </ion-card> 
