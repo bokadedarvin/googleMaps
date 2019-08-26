@@ -1,21 +1,22 @@
-import { Injectable } from '@angular/core'; 
-import { ApiAbstractMethod } from '../abstract/api/api-abstract-method';
+import { Injectable } from '@angular/core';
+import { ApiAbstractMethod } from 'src/app/abstract/api/api-abstract-method';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
-// @Injectable()
-// export class CommonService implements ApiAbstractMethod {
-//     baseUrl: string;    endPoint: string;
-//     controller: string;
-//     get(func: string, options?: object): import("rxjs").Observable<Response> {
-//         throw new Error("Method not implemented.");
-//     }
-//     post(func: string, data: object, options?: object): import("rxjs").Observable<Response> {
-//         throw new Error("Method not implemented.");
-//     }
-//     put(func: string, data: object, options?: object): import("rxjs").Observable<Response> {
-//         throw new Error("Method not implemented.");
-//     }
-//     delete(func: string, options?: object): import("rxjs").Observable<Response> {
-//         throw new Error("Method not implemented.");
-//     }
+@Injectable({
+  providedIn: 'root'
+})
+export class CommonService extends ApiAbstractMethod{
+  endPoint: string;
+  listLimit: number;
 
-// }
+  constructor(public http: HttpClient) {
+    super(http);
+  } 
+
+  login( userData:object ): Observable<any> {
+    this.endPoint = 'frontend';
+    return this.post( userData );
+  }
+  
+}

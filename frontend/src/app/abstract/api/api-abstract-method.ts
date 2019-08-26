@@ -1,24 +1,33 @@
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-// import { environment } from '../../../environments/environment';
-// import { ApiRequestParams } from '../../interface/api-request/api-request-params';
+import { environment } from 'src/environments/environment';
 
 export abstract class ApiAbstractMethod {
-    abstract baseUrl: string;
     abstract endPoint: string;
-    abstract controller: string;
+    baseUrl: string;
 
     constructor(
         public http: HttpClient
-    ) { }
+    ) { 
+        this.baseUrl = environment.baseUrl;
+    }
 
     /**
      * @description Get method for the API
      * @param endpoint string for the endpoint for the get method
      * @param options
      */
-    get(func: string, options?: object): Observable<Response> {
-        return this.http.get<Response>(this.baseUrl + '/' + this.controller + '/' + func + '/' + this.endPoint, options);
+    get(options?: object): Observable<Response> {
+        return this.http.get<Response>(this.baseUrl + '/' + this.endPoint, options);
+    }
+
+    /**
+     * @description Get method for the API
+     * @param endpoint string for the endpoint for the get method
+     * @param options
+     */
+    urlGet(endpoint: string, options?: object): Observable<Response> {
+        return this.http.get<Response>(endpoint, options);
     }
 
     /**
@@ -27,8 +36,8 @@ export abstract class ApiAbstractMethod {
      * @param data
      * @param options
      */
-    post(func: string, data: object, options?: object,): Observable<Response> {
-        return this.http.post<Response>(this.baseUrl + '/' + this.controller + '/' + func + '/' + this.endPoint, data, options);
+    post(data: object, options?: object,): Observable<Response> {
+        return this.http.post<Response>(this.baseUrl + '/' + this.endPoint, data, options);
     }
 
     /**
@@ -37,8 +46,8 @@ export abstract class ApiAbstractMethod {
      * @param data
      * @param options
      */
-    put(func: string, data: object, options?: object): Observable<Response> {
-        return this.http.put<Response>(this.baseUrl + '/' + this.controller + '/' + func + '/' + this.endPoint, data, options);
+    put(data: object, options?: object): Observable<Response> {
+        return this.http.put<Response>(this.baseUrl + '/' + this.endPoint, data, options);
     }
 
     /**
@@ -46,25 +55,7 @@ export abstract class ApiAbstractMethod {
      * @param endpoint
      * @param options
      */
-    delete(func: string, options?: object): Observable<Response> {
-        return this.http.delete<Response>(this.baseUrl + '/' + this.controller + '/' + func + '/' + this.endPoint, options);
+    delete(options?: object): Observable<Response> {
+        return this.http.delete<Response>(this.baseUrl + '/' + this.endPoint, options);
     }
-
-    // changeParams( modl: string, method: string, data?: object): ApiRequestParams {
-    //     // tslint:disable-next-line:prefer-const
-        // let requesParams: ApiRequestParams;
-    //     if (data !== null) {
-    //         requesParams = {
-    //             RESTAURANT: {
-    //                 APIKEY: environment.apiKey
-    //             },
-    //             REQUESTPARAM: [{
-    //                 METHOD: method,
-    //                 MODULE: modl,
-    //                 PARAMS: data
-    //             }]
-    //         };
-    //     }
-    //     return requesParams;
-    // }
 }

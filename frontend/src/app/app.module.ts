@@ -11,6 +11,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AgmCoreModule } from '@agm/core';
 import { CommonLayoutComponent } from './layout/common-layout/common-layout.component';
 import { FullLayoutComponent } from './layout/full-layout/full-layout.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent,CommonLayoutComponent,FullLayoutComponent],
@@ -19,6 +20,7 @@ import { FullLayoutComponent } from './layout/full-layout/full-layout.component'
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
+    HttpClientModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBLNB4t4124wqis9jul4WISLT8WrXVl8Ys'
     })

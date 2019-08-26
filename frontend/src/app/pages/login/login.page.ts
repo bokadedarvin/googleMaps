@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
-// import { ApiAbstractMethod } from '../../abstract/api/api-abstract-method';
-// import { CommonService } from '../../services/common.service';
+import { CommonService } from '../../services/common.service';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +11,7 @@ import { Router } from '@angular/router';
 export class LoginPage implements OnInit {
   loginForm: FormGroup;
   
-  constructor( private router: Router) { 
+  constructor( private router: Router, private commonService: CommonService) { 
     
   }
 
@@ -44,8 +43,13 @@ export class LoginPage implements OnInit {
     }
     // this.commonService.post( '', this.userData );
     console.log(this.userData);
-    
-    this.router.navigate(['/home']);
+
+    this.commonService.login(this.userData).subscribe((loginResponse) => {
+      console.log(loginResponse)
+      this.router.navigate(['/home']);
+    }, error => {
+      console.log('Please Try Again Later', error);
+    });
   }
 
 }
