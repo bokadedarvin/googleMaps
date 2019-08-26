@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
-export class CommonService extends ApiAbstractMethod{
+export class CommonService extends ApiAbstractMethod {
   endPoint: string;
   listLimit: number;
 
