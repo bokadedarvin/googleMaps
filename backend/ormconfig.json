@@ -1,0 +1,11 @@
+{
+    "type": "mysql",
+    "host": "localhost",
+    "port": 3360,
+    "username": "root",
+    "password": "",
+    "database": "google_poc",
+    "entities": ["dist/**/**.entity{.ts,.js}"],
+    "synchronize": true
+  }
+  

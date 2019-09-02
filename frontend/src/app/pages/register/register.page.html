@@ -1,4 +1,4 @@
-<ion-content>
+<!-- <ion-content>
     <form [formGroup]="registerationForm" (ngSubmit)="register(form)">
       <ion-grid>
         <ion-row justify-content-center>
@@ -8,7 +8,7 @@
             </div>
             <div padding>
               <ion-item>
-                <ion-label position="floating">First Name</ion-label>
+                <ion-label position="stacked">First Name</ion-label>
                 <ion-input  name="FirstName" type="text" formControlName="FirstName" required></ion-input>
               </ion-item>
               <ion-label color="danger" *ngIf="registerationForm.controls.FirstName.invalid && registerationForm.controls.FirstName.dirty">{{getErrorMessage('FirstName')}}</ion-label>
@@ -33,12 +33,51 @@
               </ion-item>
               <ion-label color="danger" *ngIf="registerationForm.controls.ConfirmPassword.invalid && registerationForm.controls.ConfirmPassword.dirty">{{getErrorMessage('ConfirmPassword')}}</ion-label>
             </div>
-            <div padding>
-              <ion-button type="submit" [disabled]="registerationForm.invalid">Register</ion-button><br>
+            <div padding text-center>
+              <ion-button type="submit" [disabled]="registerationForm.invalid" class="ion-margin-bottom">Register</ion-button><br>
               <a type="button" routerLink="/login" expand="block">Already Registered..!</a>
             </div>
           </ion-col>
         </ion-row>
       </ion-grid>
     </form>
-  </ion-content>
+  </ion-content> -->
+<ion-header translucent >
+  <ion-toolbar>
+    <ion-title>Create Account</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content fullscreen class="ion-padding-top">
+  <form [formGroup]="registerationForm" (ngSubmit)="register(form)">
+    <ion-list lines="full" class="ion-no-margin ion-no-padding">
+      <ion-item>
+        <ion-label position="stacked">First Name <ion-text color="danger">*</ion-text></ion-label>
+        <ion-input required type="text" formControlName="FirstName" [(ngModel)]="userData.firstName" ></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Last Name <ion-text color="danger">*</ion-text></ion-label>
+        <ion-input required type="text" formControlName="LastName" [(ngModel)]="userData.lastName" ></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Email <ion-text color="danger">*</ion-text></ion-label>
+        <ion-input required type="text" formControlName="EmailAddress" [(ngModel)]="userData.email" ></ion-input>
+      </ion-item>
+      
+      <ion-item>
+        <ion-label position="stacked">Password <ion-text color="danger">*</ion-text></ion-label>
+        <ion-input required type="password" formControlName="Password" [(ngModel)]="userData.password" ></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Confirm Password <ion-text color="danger">*</ion-text></ion-label>
+        <ion-input required type="password" formControlName="ConfirmPassword" ></ion-input>
+      </ion-item>
+    </ion-list>
+    <div class="ion-padding ion-margin-top" text-center>
+      <ion-button expand="block" type="submit" [disabled]="registerationForm.invalid" class="ion-no-margin ion-margin-bottom">Create account</ion-button>
+      <a type="button" routerLink="/login" expand="block">Already Registered..!</a>
+    </div>
+  </form>
+</ion-content>

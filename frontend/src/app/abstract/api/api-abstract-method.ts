@@ -4,6 +4,7 @@ import { environment } from 'src/environments/environment';
 
 export abstract class ApiAbstractMethod {
     abstract endPoint: string;
+    abstract module: string;
     baseUrl: string;
 
     constructor(
@@ -18,7 +19,7 @@ export abstract class ApiAbstractMethod {
      * @param options
      */
     get(options?: object): Observable<Response> {
-        return this.http.get<Response>(this.baseUrl + '/' + this.endPoint, options);
+        return this.http.get<Response>(this.baseUrl + '/' + this.module + '/' + this.endPoint, options);
     }
 
     /**
@@ -37,7 +38,7 @@ export abstract class ApiAbstractMethod {
      * @param options
      */
     post(data: object, options?: object,): Observable<Response> {
-        return this.http.post<Response>(this.baseUrl + '/' + this.endPoint, data, options);
+        return this.http.post<Response>(this.baseUrl + '/' + this.module + '/' + this.endPoint, data, options);
     }
 
     /**
@@ -47,7 +48,7 @@ export abstract class ApiAbstractMethod {
      * @param options
      */
     put(data: object, options?: object): Observable<Response> {
-        return this.http.put<Response>(this.baseUrl + '/' + this.endPoint, data, options);
+        return this.http.put<Response>(this.baseUrl + '/' + this.module + '/' + this.endPoint, data, options);
     }
 
     /**
@@ -56,6 +57,6 @@ export abstract class ApiAbstractMethod {
      * @param options
      */
     delete(options?: object): Observable<Response> {
-        return this.http.delete<Response>(this.baseUrl + '/' + this.endPoint, options);
+        return this.http.delete<Response>(this.baseUrl + '/' + this.module + '/' + this.endPoint, options);
     }
 }

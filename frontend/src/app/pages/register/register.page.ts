@@ -1,17 +1,26 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { UserService } from 'src/app/services/user.service';
+import { registerUser } from 'src/app/interface/user/register-user';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.page.html',
   styleUrls: ['./register.page.scss'],
+  providers: [UserService],
 })
 export class RegisterPage implements OnInit {
   registerationForm: FormGroup;
+  userData: registerUser
   
-  constructor( private router: Router) { 
-    
+  constructor( private router: Router, private userService: UserService) { 
+    this.userData = {
+      email: '',
+      password: '',
+      firstName: '',
+      lastName: '',
+    };
   }
   
   equalto(field_name): ValidatorFn {
@@ -63,16 +72,19 @@ export class RegisterPage implements OnInit {
     return errorMessage;
   }
 
-  userData:any = {}
-  register(){
-    this.userData = {
-      firstName : this.registerationForm.value.FirstName,
-      lastName : this.registerationForm.value.LastName,
-      emailAddress : this.registerationForm.value.EmailAddress,
-      password : this.registerationForm.value.Password,
-    }
+  register() {
+    (Object.keys(this.userData).length > 0 ) ? this.userService.register(this.userData).subscribe((response)=>{
+      console.log('asdasd',response);
+    }, error => {
+      console.log('Please Try Again Later', error);
+    }) : null;
+    // this.userData = {
+    //   firstName : this.registerationForm.value.FirstName,
+    //   lastName : this.registerationForm.value.LastName,
+    //   emailAddress : this.registerationForm.value.EmailAddress,
+    //   password : this.registerationForm.value.Password,
+    // }
     // this.commonService.post( '', this.userData );
-    console.log(this.userData);
     
     // this.router.navigate(['/login']);
   }

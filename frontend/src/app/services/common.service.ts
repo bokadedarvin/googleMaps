@@ -7,11 +7,14 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class CommonService extends ApiAbstractMethod {
+  module: string;
   endPoint: string;
   listLimit: number;
 
   constructor(public http: HttpClient) {
     super(http);
+    this.module = '';
+    
   } 
 
   login( userData:object ): Observable<any> {

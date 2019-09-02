@@ -1,6 +1,6 @@
 <ion-content padding>
     <form [formGroup]="loginForm" (ngSubmit)="login(form)">
-      <ion-grid>
+      <ion-grid align-self-center>
         <ion-row  justify-content-center>
           <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
             <div text-center>
@@ -19,8 +19,8 @@
               </ion-item>
               <ion-label color="danger" *ngIf="loginForm.controls.EmailAddress.invalid && loginForm.controls.EmailAddress.dirty">{{getErrorMessage('Password')}}</ion-label>
             </div>
-            <div padding>
-              <ion-button type="submit" [disabled]="loginForm.invalid">Login</ion-button><br>
+            <div padding text-center>
+              <ion-button type="submit" [disabled]="loginForm.invalid" class="ion-margin-bottom">Login</ion-button><br>
               <a type="button" routerLink="/register">Register here..!</a>
             </div>
           </ion-col>
