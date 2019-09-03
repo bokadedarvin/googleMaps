@@ -1,4 +1,4 @@
-<ion-content padding>
+<!-- <ion-content padding>
     <form [formGroup]="loginForm" (ngSubmit)="login(form)">
       <ion-grid align-self-center>
         <ion-row  justify-content-center>
@@ -26,5 +26,31 @@
           </ion-col>
         </ion-row>
       </ion-grid>
+    </form>
+  </ion-content> -->
+  <ion-header translucent >
+    <ion-toolbar>
+      <ion-title>Login</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content fullscreen class="ion-padding-top">
+    <form [formGroup]="loginForm" (ngSubmit)="login(form)">
+      <ion-list lines="full" class="ion-no-margin ion-no-padding"> 
+  
+        <ion-item>
+          <ion-label position="stacked">Email <ion-text color="danger">*</ion-text></ion-label>
+          <ion-input required type="text" formControlName="EmailAddress" [(ngModel)]="userData.email" ></ion-input>
+        </ion-item>
+        <ion-label color="danger" *ngIf="loginForm.controls.EmailAddress.invalid && loginForm.controls.EmailAddress.dirty">{{getErrorMessage('EmailAddress')}}</ion-label>        
+        <ion-item>
+          <ion-label position="stacked">Password <ion-text color="danger">*</ion-text></ion-label>
+          <ion-input required type="password" formControlName="Password" [(ngModel)]="userData.password" ></ion-input>
+        </ion-item> 
+        <ion-label color="danger" *ngIf="loginForm.controls.EmailAddress.invalid && loginForm.controls.EmailAddress.dirty">{{getErrorMessage('Password')}}</ion-label>
+      </ion-list>
+      <div class="ion-padding ion-margin-top" text-center>
+        <ion-button expand="block" type="submit" [disabled]="loginForm.invalid" class="ion-no-margin ion-margin-bottom">Login</ion-button>
+        <a type="button" routerLink="/register">Register here..!</a>
+      </div>
     </form>
   </ion-content>

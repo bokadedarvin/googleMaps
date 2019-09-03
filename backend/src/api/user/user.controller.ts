@@ -26,7 +26,7 @@ export class UserController {
     
     @Post('createAdmin')
     async createAdmin(@Body() user: User) {
-        return this.service.createUser(user);
+        return this.service.createAdminUser(user);
     }
 
     @Put('update')

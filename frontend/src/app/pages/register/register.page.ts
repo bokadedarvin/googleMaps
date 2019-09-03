@@ -75,18 +75,10 @@ export class RegisterPage implements OnInit {
   register() {
     (Object.keys(this.userData).length > 0 ) ? this.userService.register(this.userData).subscribe((response)=>{
       console.log('asdasd',response);
+      this.router.navigate(['/login']);
     }, error => {
       console.log('Please Try Again Later', error);
-    }) : null;
-    // this.userData = {
-    //   firstName : this.registerationForm.value.FirstName,
-    //   lastName : this.registerationForm.value.LastName,
-    //   emailAddress : this.registerationForm.value.EmailAddress,
-    //   password : this.registerationForm.value.Password,
-    // }
-    // this.commonService.post( '', this.userData );
-    
-    // this.router.navigate(['/login']);
+    }) : null; 
   }
 
 }
