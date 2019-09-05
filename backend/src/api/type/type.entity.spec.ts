@@ -1,7 +1,7 @@
-import { .\type } from './.\type';
+import { Type } from './type.entity';
 
-describe('.\type', () => {
+describe('Type.Entity', () => {
   it('should be defined', () => {
-    expect(new .\type()).toBeDefined();
+    expect(new Type()).toBeDefined();
   });
 });
