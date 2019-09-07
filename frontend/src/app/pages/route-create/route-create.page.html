@@ -19,17 +19,17 @@
           <ion-list lines="full" class="ion-no-margin ion-no-padding">
             <ion-item>
                 <ion-label position="stacked">Place Name</ion-label>
-                <ion-input name="Description" formControlName="Name" [(ngModel)]="placeData.placeName" required></ion-input>
+                <ion-input name="Description" formControlName="Name" [(ngModel)]="markerData.placeName" required></ion-input>
             </ion-item>
             <ion-label color="danger" *ngIf="placeCreateForm.controls.Name.invalid && placeCreateForm.controls.Name.dirty">{{getErrorMessage('Name')}}</ion-label>
             <ion-item>
               <ion-label position="stacked">Place Description</ion-label>
-              <ion-input name="Description" formControlName="Description" [(ngModel)]="placeData.description" required></ion-input>
+              <ion-input name="Description" formControlName="Description" [(ngModel)]="markerData.description" required></ion-input>
             </ion-item>
             <ion-label color="danger" *ngIf="placeCreateForm.controls.Description.invalid && placeCreateForm.controls.Description.dirty">{{getErrorMessage('Description')}}</ion-label>
             <ion-item>
               <ion-label position="stacked">Place Type</ion-label>
-              <ion-select name="Type" formControlName="Type" [(ngModel)]="placeData.placeType" required>
+              <ion-select name="Type" formControlName="Type" [(ngModel)]="markerData.placeType" required>
                 <ion-select-option *ngFor="let placeType of placeTypes" [value]="placeType.value">{{placeType.name}}</ion-select-option>
               </ion-select>
             </ion-item> 

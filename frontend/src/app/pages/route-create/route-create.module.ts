@@ -6,8 +6,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { RouteCreatePage } from './route-create.page';
-import { PlaceService } from 'src/app/services/place.service';
 import { AgmCoreModule } from '@agm/core';
+import { MarkerService } from 'src/app/services/marker.service';
 
 const routes: Routes = [
   {
@@ -26,6 +26,6 @@ const routes: Routes = [
     RouterModule.forChild(routes)
   ],
   declarations: [RouteCreatePage],
-  providers: [PlaceService],
+  providers: [MarkerService],
 })
 export class RouteCreatePageModule {}
