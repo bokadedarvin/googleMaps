@@ -16,22 +16,24 @@
               <ion-button color="danger" routerLink="/places"><ion-icon name="arrow-round-back"></ion-icon> Back</ion-button>
           </ion-list>
         <form [formGroup]="placeCreateForm" (ngSubmit)="addPlaces(form)">
+          <ion-list lines="full" class="ion-no-margin ion-no-padding">
             <ion-item>
-              <ion-label position="floating">Place Name</ion-label>
-              <ion-input name="Description" formControlName="Name" required></ion-input>
+                <ion-label position="stacked">Place Name</ion-label>
+                <ion-input name="Description" formControlName="Name" [(ngModel)]="placeData.placeName" required></ion-input>
             </ion-item>
             <ion-label color="danger" *ngIf="placeCreateForm.controls.Name.invalid && placeCreateForm.controls.Name.dirty">{{getErrorMessage('Name')}}</ion-label>
-          <ion-item>
-            <ion-label position="floating">Place Description</ion-label>
-            <ion-input name="Description" formControlName="Description" required></ion-input>
-          </ion-item>
-          <ion-label color="danger" *ngIf="placeCreateForm.controls.Description.invalid && placeCreateForm.controls.Description.dirty">{{getErrorMessage('Description')}}</ion-label>
-          <ion-item>
-            <ion-label position="floating">Place Type</ion-label>
-            <ion-select name="Type" formControlName="Type" required>
-              <ion-select-option *ngFor="let placeType of placeTypes" [value]="placeType.value">{{placeType.name}}</ion-select-option>
-            </ion-select>
-          </ion-item> 
+            <ion-item>
+              <ion-label position="stacked">Place Description</ion-label>
+              <ion-input name="Description" formControlName="Description" [(ngModel)]="placeData.description" required></ion-input>
+            </ion-item>
+            <ion-label color="danger" *ngIf="placeCreateForm.controls.Description.invalid && placeCreateForm.controls.Description.dirty">{{getErrorMessage('Description')}}</ion-label>
+            <ion-item>
+              <ion-label position="stacked">Place Type</ion-label>
+              <ion-select name="Type" formControlName="Type" [(ngModel)]="placeData.placeType" required>
+                <ion-select-option *ngFor="let placeType of placeTypes" [value]="placeType.value">{{placeType.name}}</ion-select-option>
+              </ion-select>
+            </ion-item> 
+          </ion-list>
           <div class="ion-padding-top">
             <ion-label color="danger" *ngIf="placeCreateForm.controls.Type.invalid && placeCreateForm.controls.Type.dirty">{{getErrorMessage('Type')}}</ion-label>
             <ion-button type="submit" color="primary" [disabled]="placeCreateForm.invalid"><ion-icon name="add"></ion-icon> Add Place</ion-button>

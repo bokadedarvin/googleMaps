@@ -40,6 +40,12 @@ export class UserService {
         return await this.usersRepository.delete(userId);
     }
 
+    async loginUser(user: User) {
+        return await this.usersRepository.find({
+            where: [{ "email": user.email , 'password': user.password }]
+        });
+    }
+
     getUserRole(role: string) {
         return this.roleService.getRole(role).then((roleIndex) => {
             return roleIndex[0];

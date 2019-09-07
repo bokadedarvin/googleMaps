@@ -12,12 +12,6 @@ export class Marker {
         length: 100,
         nullable: false,
     })
-    typeId: number;
-
-    @Column({
-        length: 100,
-        nullable: false,
-    })
     name: string;
 
     @Column({

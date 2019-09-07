@@ -1,47 +1,3 @@
-<!-- <ion-content>
-    <form [formGroup]="registerationForm" (ngSubmit)="register(form)">
-      <ion-grid>
-        <ion-row justify-content-center>
-          <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
-            <div text-center>
-              <h3>Create your account!</h3>
-            </div>
-            <div padding>
-              <ion-item>
-                <ion-label position="stacked">First Name</ion-label>
-                <ion-input  name="FirstName" type="text" formControlName="FirstName" required></ion-input>
-              </ion-item>
-              <ion-label color="danger" *ngIf="registerationForm.controls.FirstName.invalid && registerationForm.controls.FirstName.dirty">{{getErrorMessage('FirstName')}}</ion-label>
-              <ion-item>
-                <ion-label position="floating">Last Name</ion-label>
-                <ion-input  name="LastName" type="text" formControlName="LastName" required></ion-input>
-              </ion-item>
-              <ion-label color="danger" *ngIf="registerationForm.controls.LastName.invalid && registerationForm.controls.LastName.dirty">{{getErrorMessage('LastName')}}</ion-label>
-              <ion-item>
-                <ion-label position="floating">Email</ion-label>
-                <ion-input name="EmailAddress" type="email" formControlName="EmailAddress" required></ion-input>
-              </ion-item>
-              <ion-label color="danger" *ngIf="registerationForm.controls.EmailAddress.invalid && registerationForm.controls.EmailAddress.dirty">{{getErrorMessage('EmailAddress')}}</ion-label>
-              <ion-item>
-                <ion-label position="floating">Password</ion-label>
-                <ion-input name="Password" type="password" formControlName="Password" required></ion-input>
-              </ion-item>
-              <ion-label color="danger" *ngIf="registerationForm.controls.Password.invalid && registerationForm.controls.Password.dirty">{{getErrorMessage('Password')}}</ion-label>
-              <ion-item>
-                <ion-label position="floating">Confirm Password</ion-label>
-                <ion-input name="ConfirmPassword" type="password" formControlName="ConfirmPassword" required></ion-input>
-              </ion-item>
-              <ion-label color="danger" *ngIf="registerationForm.controls.ConfirmPassword.invalid && registerationForm.controls.ConfirmPassword.dirty">{{getErrorMessage('ConfirmPassword')}}</ion-label>
-            </div>
-            <div padding text-center>
-              <ion-button type="submit" [disabled]="registerationForm.invalid" class="ion-margin-bottom">Register</ion-button><br>
-              <a type="button" routerLink="/login" expand="block">Already Registered..!</a>
-            </div>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </form>
-  </ion-content> -->
 <ion-header translucent >
   <ion-toolbar>
     <ion-title>Create Account</ion-title>
@@ -54,27 +10,27 @@
         <ion-label position="stacked">First Name <ion-text color="danger">*</ion-text></ion-label>
         <ion-input required type="text" formControlName="FirstName" [(ngModel)]="userData.firstName" ></ion-input>
       </ion-item>
-      <ion-label color="danger" *ngIf="registerationForm.controls.FirstName.invalid && registerationForm.controls.FirstName.dirty">{{getErrorMessage('FirstName')}}</ion-label>
+      <ion-label class="ml-4" color="danger" *ngIf="registerationForm.controls.FirstName.invalid && registerationForm.controls.FirstName.dirty">{{getErrorMessage('FirstName')}}</ion-label>
       <ion-item>
         <ion-label position="stacked">Last Name <ion-text color="danger">*</ion-text></ion-label>
         <ion-input required type="text" formControlName="LastName" [(ngModel)]="userData.lastName" ></ion-input>
       </ion-item>
-      <ion-label color="danger" *ngIf="registerationForm.controls.LastName.invalid && registerationForm.controls.LastName.dirty">{{getErrorMessage('LastName')}}</ion-label>
+      <ion-label class="ml-4" color="danger" *ngIf="registerationForm.controls.LastName.invalid && registerationForm.controls.LastName.dirty">{{getErrorMessage('LastName')}}</ion-label>
       <ion-item>
         <ion-label position="stacked">Email <ion-text color="danger">*</ion-text></ion-label>
         <ion-input required type="text" formControlName="EmailAddress" [(ngModel)]="userData.email" ></ion-input>
       </ion-item>
-      <ion-label color="danger" *ngIf="registerationForm.controls.EmailAddress.invalid && registerationForm.controls.EmailAddress.dirty">{{getErrorMessage('EmailAddress')}}</ion-label>      
+      <ion-label class="ml-4" color="danger" *ngIf="registerationForm.controls.EmailAddress.invalid && registerationForm.controls.EmailAddress.dirty">{{getErrorMessage('EmailAddress')}}</ion-label>      
       <ion-item>
         <ion-label position="stacked">Password <ion-text color="danger">*</ion-text></ion-label>
         <ion-input required type="password" formControlName="Password" [(ngModel)]="userData.password" ></ion-input>
       </ion-item>
-      <ion-label color="danger" *ngIf="registerationForm.controls.Password.invalid && registerationForm.controls.Password.dirty">{{getErrorMessage('Password')}}</ion-label>
+      <ion-label class="ml-4" color="danger" *ngIf="registerationForm.controls.Password.invalid && registerationForm.controls.Password.dirty">{{getErrorMessage('Password')}}</ion-label>
       <ion-item>
         <ion-label position="stacked">Confirm Password <ion-text color="danger">*</ion-text></ion-label>
         <ion-input required type="password" formControlName="ConfirmPassword" ></ion-input>
       </ion-item>
-      <ion-label color="danger" *ngIf="registerationForm.controls.ConfirmPassword.invalid && registerationForm.controls.ConfirmPassword.dirty">{{getErrorMessage('ConfirmPassword')}}</ion-label>
+      <ion-label class="ml-4" color="danger" *ngIf="registerationForm.controls.ConfirmPassword.invalid && registerationForm.controls.ConfirmPassword.dirty">{{getErrorMessage('ConfirmPassword')}}</ion-label>
     </ion-list>
     <div class="ion-padding ion-margin-top" text-center>
       <ion-button expand="block" type="submit" [disabled]="registerationForm.invalid" class="ion-no-margin ion-margin-bottom">Create account</ion-button>

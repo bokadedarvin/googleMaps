@@ -74,7 +74,6 @@ export class RegisterPage implements OnInit {
 
   register() {
     (Object.keys(this.userData).length > 0 ) ? this.userService.register(this.userData).subscribe((response)=>{
-      console.log('asdasd',response);
       this.router.navigate(['/login']);
     }, error => {
       console.log('Please Try Again Later', error);

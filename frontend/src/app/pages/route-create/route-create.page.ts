@@ -1,14 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { PlaceService } from 'src/app/services/place.service';
+import { placeData } from 'src/app/interface/place/place';
 
 @Component({
   selector: 'app-route-create',
   templateUrl: './route-create.page.html',
   styleUrls: ['./route-create.page.scss'],
+  providers: [PlaceService],
 })
 export class RouteCreatePage implements OnInit {
   placeCreateForm: FormGroup;
+  placeData: placeData;
   
   title: string = 'AGM project';
   latitude: number;
@@ -18,34 +22,42 @@ export class RouteCreatePage implements OnInit {
   places = [];
   placeTypes = [];
   
-  constructor(private router: Router) { }
+  constructor( private router: Router) { 
+  // constructor( private router: Router, private placeService: PlaceService) { 
+    this.placeData = {
+      placeName: '',
+      description: '',
+      placeType: '',
+    };
+  }
 
   ngOnInit() { 
     
     this.zoom = 18;
      
-    this.placeTypes = [
-      {
-        name : 'Cafeteria',
-        value : 'cafeteria',
-      },
-      {
-        name : 'Library',
-        value : 'library',
-      },
-      {
-        name : 'Class Room',
-        value : 'classroom',
-      },
-      {
-        name : 'Office',
-        value : 'office',
-      },
-      {
-        name : 'Play Ground',
-        value : 'playground',
-      },
-    ]
+    this.getPlaceTypes();
+    // this.placeTypes = [
+    //   {
+    //     name : 'Cafeteria',
+    //     value : 'cafeteria',
+    //   },
+    //   {
+    //     name : 'Library',
+    //     value : 'library',
+    //   },
+    //   {
+    //     name : 'Class Room',
+    //     value : 'classroom',
+    //   },
+    //   {
+    //     name : 'Office',
+    //     value : 'office',
+    //   },
+    //   {
+    //     name : 'Play Ground',
+    //     value : 'playground',
+    //   },
+    // ]
     this.placeCreateForm = new FormGroup({
       Name: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z0-9 -.,]*$')]),
       Description: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z0-9 -.,]*$')]),
@@ -90,10 +102,24 @@ export class RouteCreatePage implements OnInit {
     
   } 
   
+  getPlaceTypes(){
+    this.placeService.getPlaceTypes(this.placeData).subscribe((response)=>{
+      console.log(response);
+      // this.router.navigate(['/route-view']);
+    }, error => {
+      console.log('Please Try Again Later', error);
+    });
+  }
+
   submitRoute(){//CALL SUBMIT API
     if( this.places.length !== 0 ){
-      console.log(this.places);
-      this.router.navigate(['/route-view']);
+      
+      (Object.keys(this.placeData).length > 0 ) ? this.placeService.addPlaces(this.placeData).subscribe((response)=>{
+        console.log(response);
+        // this.router.navigate(['/route-view']);
+      }, error => {
+        console.log('Please Try Again Later', error);
+      }) : null; 
     }else{
       alert('Please Add markers');
     }
