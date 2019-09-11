@@ -42,6 +42,8 @@ export class UserService {
 
     async loginUser(user: User) {
         return await this.usersRepository.find({
+            relations: [ 'Role' ],
+            select: ["firstName", "lastName", "email", "isActive"],
             where: [{ "email": user.email , 'password': user.password }]
         });
     }

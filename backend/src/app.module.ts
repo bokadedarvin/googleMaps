@@ -5,6 +5,7 @@ import { UserModule } from './api/user/user.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { RoleModule } from './api/role/role.module';
 import { MarkerModule } from './api/marker/marker.module';
+import { TypeModule } from './api/type/type.module';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { MarkerModule } from './api/marker/marker.module';
     TypeOrmModule.forRoot(),
     RoleModule,
     MarkerModule,
+    TypeModule,
   ],
   controllers: [AppController],
   providers: [AppService],

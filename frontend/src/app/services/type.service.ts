@@ -17,7 +17,7 @@ export class TypeService extends ApiAbstractMethod {
   } 
   
   getAllTypes(): Observable<any> {
-    this.endPoint = 'get';
+    this.endPoint = 'getList';
     return this.get();
   }
   

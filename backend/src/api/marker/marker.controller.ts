@@ -9,9 +9,13 @@ export class MarkerController {
 
     @Post('create')
     async create(@Body() marker: Marker) {
-        console.log(marker)
         return await this.service.addMarkers(marker).then((response)=>{
             return response;
         }).catch(error => console.log(error));
+    }
+
+    @Get('getMarkerList')
+    async all() {
+        return this.service.getMarkerList();
     }
 }

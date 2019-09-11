@@ -1,16 +1,20 @@
 import { Component, OnInit } from '@angular/core';
+import { MarkerService } from 'src/app/services/marker.service';
 
 @Component({
   selector: 'app-places',
   templateUrl: './places.page.html',
   styleUrls: ['./places.page.scss'],
+  providers: [MarkerService],
 })
 export class PlacesPage implements OnInit {
+  markers: any;
 
-  constructor() { }
+  constructor(private markerService: MarkerService) { }
 
   public places: Array<any>;
   ngOnInit() {
+    this.getMarkers();
     this.places = [
       {
         name: 'place1',
@@ -63,6 +67,14 @@ export class PlacesPage implements OnInit {
         placeType: 'Class Room'
       }
     ]
+  }
+
+  getMarkers(){
+    this.markerService.getMarkers().subscribe((response)=>{
+      this.markers = response;
+    }, error => {
+      console.log('Please Try Again Later', error);
+    });
   }
 
 }

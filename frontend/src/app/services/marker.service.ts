@@ -20,5 +20,9 @@ export class MarkerService extends ApiAbstractMethod {
     this.endPoint = 'create';
     return this.post(placeData);
   }
+  getMarkers(): Observable<any> {
+    this.endPoint = 'getMarkerList';
+    return this.get();
+  }
   
 }

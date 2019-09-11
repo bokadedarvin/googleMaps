@@ -10,21 +10,35 @@
   </ion-header>
   
   <ion-content> 
-      <ion-card class="welcome-card"> 
-        <ion-card-content>  
-            <ion-list class="ion-text-end"> 
-                <ion-button color="primary" routerLink="/route-create"><ion-icon name="add"></ion-icon> Add Place</ion-button>
-            </ion-list>
-            <ion-list>
-              <ion-item *ngFor="let place of places;let i = index;">
-                <ion-label>{{i+1}}. - {{place.name}} - {{place.description}} - {{place.placeType}}</ion-label>
-                <ion-label class="ion-text-end">
-                    <ion-button color="warning"><ion-icon name="create"></ion-icon></ion-button>
-                    <ion-button color="danger"><ion-icon name="trash"></ion-icon></ion-button> 
-                </ion-label>
-              </ion-item> 
-            </ion-list>
-        </ion-card-content>
-      </ion-card> 
+      <ion-fab vertical="top" horizontal="end" slot="fixed">
+        <ion-fab-button routerLink="/route-create">
+          <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+      </ion-fab>
+      <ion-list>
+        <ion-list-header>
+          View All Markers
+        </ion-list-header>
+
+        <ion-item *ngFor="let place of markers; let i = index;">
+          <ion-avatar slot="start">
+            <ion-icon name="{{place.Type.icon}}"></ion-icon>
+          </ion-avatar>
+          <ion-label>
+            <h2>{{place.name}}</h2>
+            <h3>{{place.Type.name}}</h3>
+            <p>{{place.description}}</p>
+          </ion-label>
+          <ion-button color="warning" slot="end" ><ion-icon name="create"></ion-icon></ion-button>
+          <ion-button color="danger" slot="end" ><ion-icon name="trash"></ion-icon></ion-button> 
+        </ion-item>
+        <!-- <ion-item *ngFor="let place of places;let i = index;">
+          <ion-label>{{place.name}} - {{place.placeType}}</ion-label>
+          <ion-label class="ion-text-end">
+              <ion-button color="warning"><ion-icon name="create"></ion-icon></ion-button>
+              <ion-button color="danger"><ion-icon name="trash"></ion-icon></ion-button> 
+          </ion-label>
+        </ion-item>  -->
+      </ion-list>
   </ion-content>
   

@@ -22,6 +22,7 @@ export class RouteCreatePage implements OnInit {
   marker = {};
   places = [];
   placeTypes = [];
+  agmMapShow: boolean;
 
   constructor(private markerService: MarkerService , private typeService: TypeService, private router: Router ) {
     this.markerData = {
@@ -29,35 +30,42 @@ export class RouteCreatePage implements OnInit {
       description: '',
       placeType: '',
     };
+    this.agmMapShow = false;
   }
 
   ngOnInit() {
-
-    this.zoom = 18;
+    this.zoom = 10;
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.latitude = position.coords.latitude;
+        this.longitude = position.coords.longitude;
+        this.agmMapShow = true;
+      });
+    }
 
     this.getPlaceTypes();
-    this.placeTypes = [
-      {
-        name: 'Cafeteria',
-        value: 'cafeteria',
-      },
-      {
-        name: 'Library',
-        value: 'library',
-      },
-      {
-        name: 'Class Room',
-        value: 'classroom',
-      },
-      {
-        name: 'Office',
-        value: 'office',
-      },
-      {
-        name: 'Play Ground',
-        value: 'playground',
-      },
-    ]
+    // this.placeTypes = [
+    //   {
+    //     name: 'Cafeteria',
+    //     value: 'cafeteria',
+    //   },
+    //   {
+    //     name: 'Library',
+    //     value: 'library',
+    //   },
+    //   {
+    //     name: 'Class Room',
+    //     value: 'classroom',
+    //   },
+    //   {
+    //     name: 'Office',
+    //     value: 'office',
+    //   },
+    //   {
+    //     name: 'Play Ground',
+    //     value: 'playground',
+    //   },
+    // ];
     this.placeCreateForm = new FormGroup({
       Name: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z0-9 -.,]*$')]),
       Description: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z0-9 -.,]*$')]),
@@ -83,16 +91,17 @@ export class RouteCreatePage implements OnInit {
   }
 
   addPlaces() {
+    if(!this.agmMapShow) {
+      this.agmMapShow = true;
+    }
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
-        this.latitude = position.coords.latitude;
-        this.longitude = position.coords.longitude;
         this.marker = {
-          latitude: this.latitude,
-          longitude: this.longitude,
+          lat: position.coords.latitude,
+          long: position.coords.longitude,
           name: this.placeCreateForm.value.Name,
           description: this.placeCreateForm.value.Description,
-          type: this.placeCreateForm.value.Type,
+          Type: this.placeCreateForm.value.Type,
         }
         this.places.push(this.marker);
         this.placeCreateForm.reset();
@@ -103,21 +112,26 @@ export class RouteCreatePage implements OnInit {
 
   getPlaceTypes(){
     this.typeService.getAllTypes().subscribe((response)=>{
-      console.log(response);
-      // this.router.navigate(['/route-view']);
+      this.placeTypes = response;
     }, error => {
       console.log('Please Try Again Later', error);
     });
   }
 
-  submitRoute() {//CALL SUBMIT API
+  submitRoute() {
     if (this.places.length !== 0) {
-      (Object.keys(this.places).length > 0) ? this.markerService.addMarkers(this.places).subscribe((response) => {
-        console.log(response);
-        // this.router.navigate(['/route-view']);
+      const sendData = [];
+      this.places.forEach((placeObject) => {
+        placeObject.Type = this.placeTypes[placeObject.Type];
+        sendData.push(placeObject);
+      })
+      this.markerService.addMarkers(this.places).subscribe((response) => {
+        if(response.length > 0) {
+          this.router.navigate(['/places']);
+        }
       }, error => {
         console.log('Please Try Again Later', error);
-      }) : null;
+      });
     } else {
       alert('Please Add markers');
     }

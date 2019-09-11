@@ -6,6 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { PlacesPage } from './places.page';
+import { MarkerService } from 'src/app/services/marker.service';
 
 const routes: Routes = [
   {
@@ -21,6 +22,7 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [PlacesPage]
+  declarations: [PlacesPage],
+  providers: [MarkerService],
 })
 export class PlacesPageModule {}

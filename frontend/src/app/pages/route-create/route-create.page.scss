@@ -1,3 +1,9 @@
 agm-map {
-    height: 400px;
+    height: calc(62vh - 120px);
+}
+ion-content, .maps {
+    margin: 10px;
+}
+.actionButton {
+    text-align: center;
 }

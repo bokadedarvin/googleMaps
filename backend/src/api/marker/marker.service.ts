@@ -2,14 +2,16 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Marker } from './marker.entity';
-
+import {getConnection} from "typeorm";
 @Injectable()
 export class MarkerService {
     constructor(@InjectRepository(Marker) private markerRepository: Repository<Marker>) { }
 
-    // async getUsers(): Promise<Marker[]> {
-    //     return await this.markerRepository.find();
-    // }
+    async getMarkerList(): Promise<Marker[]> {
+        return await this.markerRepository.find({
+            relations: [ 'Type' ]
+        });
+    }
 
     // async getUser(_id: number): Promise<User[]> {
     //     return await this.markerRepository.find({
@@ -18,8 +20,7 @@ export class MarkerService {
     //     });
     // }
 
-    async addMarkers(marker: Marker) {
-        console.log(marker);
+    async addMarkers(marker: Array<Marker>) {
         return await this.markerRepository.save(marker);
     }
 

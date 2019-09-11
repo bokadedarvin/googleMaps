@@ -7,7 +7,7 @@ import { Type } from './type.entity';
 export class TypeController {
     constructor(private service: TypeService) { }
 
-    @Get()
+    @Get('getList')
     async get(@Param() params) {
         return this.service.getType();
     }

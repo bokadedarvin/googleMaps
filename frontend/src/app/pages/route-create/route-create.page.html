@@ -10,48 +10,46 @@
 </ion-header>
 
 <ion-content>
-    <ion-card class="welcome-card"> 
-      <ion-card-header> 
-          <ion-list class="ion-text-end"> 
-              <ion-button color="danger" routerLink="/places"><ion-icon name="arrow-round-back"></ion-icon> Back</ion-button>
-          </ion-list>
-        <form [formGroup]="placeCreateForm" (ngSubmit)="addPlaces(form)">
-          <ion-list lines="full" class="ion-no-margin ion-no-padding">
-            <ion-item>
-                <ion-label position="stacked">Place Name</ion-label>
-                <ion-input name="Description" formControlName="Name" [(ngModel)]="markerData.placeName" required></ion-input>
-            </ion-item>
-            <ion-label color="danger" *ngIf="placeCreateForm.controls.Name.invalid && placeCreateForm.controls.Name.dirty">{{getErrorMessage('Name')}}</ion-label>
-            <ion-item>
-              <ion-label position="stacked">Place Description</ion-label>
-              <ion-input name="Description" formControlName="Description" [(ngModel)]="markerData.description" required></ion-input>
-            </ion-item>
-            <ion-label color="danger" *ngIf="placeCreateForm.controls.Description.invalid && placeCreateForm.controls.Description.dirty">{{getErrorMessage('Description')}}</ion-label>
-            <ion-item>
-              <ion-label position="stacked">Place Type</ion-label>
-              <ion-select name="Type" formControlName="Type" [(ngModel)]="markerData.placeType" required>
-                <ion-select-option *ngFor="let placeType of placeTypes" [value]="placeType.value">{{placeType.name}}</ion-select-option>
-              </ion-select>
-            </ion-item> 
-          </ion-list>
-          <div class="ion-padding-top">
-            <ion-label color="danger" *ngIf="placeCreateForm.controls.Type.invalid && placeCreateForm.controls.Type.dirty">{{getErrorMessage('Type')}}</ion-label>
-            <ion-button type="submit" color="primary" [disabled]="placeCreateForm.invalid"><ion-icon name="add"></ion-icon> Add Place</ion-button>
-            <ion-button color="primary" [disabled]="this.places.length==0" (click)='submitRoute();'><ion-icon name="send"></ion-icon> Submit Route</ion-button>
-          </div>
-        </form>
-      </ion-card-header>
-      <ion-card-content> 
-          <agm-map 
-            [latitude]="latitude" 
-            [longitude]="longitude" 
-            [zoom]="zoom" >
-              <agm-marker *ngFor="let place of places; let i = index"
-              [latitude]="place.latitude" 
-              [longitude]="place.longitude">
-              <agm-info-window>{{i+1}} - {{place.name}} - {{place.description}} - {{place.type}}</agm-info-window>
-            </agm-marker> 
-            </agm-map>
-      </ion-card-content>
-    </ion-card> 
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button routerLink="/places" color="light">
+      <ion-icon name="arrow-dropleft"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <form [formGroup]="placeCreateForm" (ngSubmit)="addPlaces(form)">
+    <ion-list lines="full" class="ion-no-margin ion-no-padding">
+      <ion-item>
+          <ion-label position="stacked">Place Name</ion-label>
+          <ion-input name="Description" formControlName="Name" [(ngModel)]="markerData.placeName" required></ion-input>
+      </ion-item>
+      <ion-label color="danger" *ngIf="placeCreateForm.controls.Name.invalid && placeCreateForm.controls.Name.dirty">{{getErrorMessage('Name')}}</ion-label>
+      <ion-item>
+        <ion-label position="stacked">Place Description</ion-label>
+        <ion-input name="Description" formControlName="Description" [(ngModel)]="markerData.description" required></ion-input>
+      </ion-item>
+      <ion-label color="danger" *ngIf="placeCreateForm.controls.Description.invalid && placeCreateForm.controls.Description.dirty">{{getErrorMessage('Description')}}</ion-label>
+      <ion-item>
+        <ion-label position="stacked">Place Type</ion-label>
+        <ion-select name="Type" formControlName="Type" [(ngModel)]="markerData.placeType" required>
+          <ion-select-option *ngFor="let placeType of placeTypes; index as i" [value]="i">{{placeType.name}}</ion-select-option>
+        </ion-select>
+      </ion-item> 
+    </ion-list>
+    <div class="ion-margin actionButton">
+      <ion-label color="danger" *ngIf="placeCreateForm.controls.Type.invalid && placeCreateForm.controls.Type.dirty">{{getErrorMessage('Type')}}</ion-label>
+      <ion-button type="submit" color="primary" [disabled]="placeCreateForm.invalid"><ion-icon name="add"></ion-icon> Add Place</ion-button>
+      <ion-button color="primary" [disabled]="this.places.length==0" (click)='submitRoute();'><ion-icon name="send"></ion-icon> Submit</ion-button>
+    </div>
+  </form>
+  <div class="maps"> 
+    <agm-map 
+      [latitude]="latitude" 
+      [longitude]="longitude" 
+      [zoom]="zoom" >
+      <agm-marker *ngFor="let place of places; let i = index"
+      [latitude]="place.lat" 
+      [longitude]="place.long">
+        <agm-info-window>{{i+1}} - {{place.name}} - {{place.description}} - {{place.type}}</agm-info-window>
+      </agm-marker> 
+    </agm-map>
+  </div>
 </ion-content>
