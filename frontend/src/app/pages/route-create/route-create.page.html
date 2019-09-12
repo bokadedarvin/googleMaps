@@ -36,8 +36,9 @@
     </ion-list>
     <div class="ion-margin actionButton">
       <ion-label color="danger" *ngIf="placeCreateForm.controls.Type.invalid && placeCreateForm.controls.Type.dirty">{{getErrorMessage('Type')}}</ion-label>
-      <ion-button type="submit" color="primary" [disabled]="placeCreateForm.invalid"><ion-icon name="add"></ion-icon> Add Place</ion-button>
-      <ion-button color="primary" [disabled]="this.places.length==0" (click)='submitRoute();'><ion-icon name="send"></ion-icon> Submit</ion-button>
+      <ion-button type="submit" *ngIf="!placeData" color="primary" [disabled]="placeCreateForm.invalid"><ion-icon name="add"></ion-icon> Add Place</ion-button>
+      <ion-button color="primary" *ngIf="!placeData" [disabled]="this.places.length==0" (click)='submitRoute("create");'><ion-icon name="send"></ion-icon> Submit</ion-button>
+      <ion-button color="warning" *ngIf="placeData" [disabled]="this.places.length==0" (click)='submitRoute("update");'><ion-icon name="create"></ion-icon> Update</ion-button>
     </div>
   </form>
   <div class="maps"> 

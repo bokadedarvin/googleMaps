@@ -9,7 +9,7 @@ import { PlaceData } from 'src/app/interface/place/place';
   selector: 'app-route-create',
   templateUrl: './route-create.page.html',
   styleUrls: ['./route-create.page.scss'],
-  providers: [MarkerService,TypeService],
+  providers: [MarkerService, TypeService],
 })
 export class RouteCreatePage implements OnInit {
   placeCreateForm: FormGroup;
@@ -22,9 +22,10 @@ export class RouteCreatePage implements OnInit {
   marker = {};
   places = [];
   placeTypes = [];
+  placeData: object = {};
   agmMapShow: boolean;
 
-  constructor(private markerService: MarkerService , private typeService: TypeService, private router: Router ) {
+  constructor(private markerService: MarkerService, private typeService: TypeService, private router: Router) {
     this.markerData = {
       placeName: '',
       description: '',
@@ -44,33 +45,21 @@ export class RouteCreatePage implements OnInit {
     }
 
     this.getPlaceTypes();
-    // this.placeTypes = [
-    //   {
-    //     name: 'Cafeteria',
-    //     value: 'cafeteria',
-    //   },
-    //   {
-    //     name: 'Library',
-    //     value: 'library',
-    //   },
-    //   {
-    //     name: 'Class Room',
-    //     value: 'classroom',
-    //   },
-    //   {
-    //     name: 'Office',
-    //     value: 'office',
-    //   },
-    //   {
-    //     name: 'Play Ground',
-    //     value: 'playground',
-    //   },
-    // ];
     this.placeCreateForm = new FormGroup({
       Name: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z0-9 -.,]*$')]),
       Description: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z0-9 -.,]*$')]),
       Type: new FormControl('', [Validators.required]),
     });
+
+
+    const place = localStorage.getItem('place');
+    this.placeData = place ? JSON.parse(place) : null;
+    if( place ){
+      this.markerData.placeName = this.placeData['name'];
+      this.markerData.description = this.placeData['description'];
+      this.markerData.placeType = this.placeData['Type']['id'];
+      this.addMarkerToMap( this.placeData['lat'], this.placeData['long'], this.placeData['name'], this.placeData['description'], this.placeData['Type'] );
+    }
   }
 
   getErrorMessage(formControl) {
@@ -91,47 +80,61 @@ export class RouteCreatePage implements OnInit {
   }
 
   addPlaces() {
-    if(!this.agmMapShow) {
+    if (!this.agmMapShow) {
       this.agmMapShow = true;
     }
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
-        this.marker = {
-          lat: position.coords.latitude,
-          long: position.coords.longitude,
-          name: this.placeCreateForm.value.Name,
-          description: this.placeCreateForm.value.Description,
-          Type: this.placeCreateForm.value.Type,
-        }
-        this.places.push(this.marker);
+        this.addMarkerToMap(position.coords.latitude, position.coords.longitude, this.placeCreateForm.value.Name, this.placeCreateForm.value.Description, this.placeCreateForm.value.Type)
         this.placeCreateForm.reset();
       });
     }
-
   }
 
-  getPlaceTypes(){
-    this.typeService.getAllTypes().subscribe((response)=>{
+  addMarkerToMap(lat, lng, name, desc, type) {
+    this.marker = {
+      lat: lat,
+      long: lng,
+      name: name,
+      description: desc,
+      Type: type,
+    }
+    this.places.push(this.marker);
+  }
+
+  getPlaceTypes() {
+    this.typeService.getAllTypes().subscribe((response) => {
       this.placeTypes = response;
     }, error => {
       console.log('Please Try Again Later', error);
     });
   }
 
-  submitRoute() {
+  submitRoute(type) {
     if (this.places.length !== 0) {
       const sendData = [];
       this.places.forEach((placeObject) => {
         placeObject.Type = this.placeTypes[placeObject.Type];
         sendData.push(placeObject);
       })
-      this.markerService.addMarkers(this.places).subscribe((response) => {
-        if(response.length > 0) {
-          this.router.navigate(['/places']);
-        }
-      }, error => {
-        console.log('Please Try Again Later', error);
-      });
+      if( type === 'create' ){
+        this.markerService.addMarkers(this.places).subscribe((response) => {
+          if (response.length > 0) {
+            this.router.navigate(['/places']);
+          }
+        }, error => {
+          console.log('Please Try Again Later', error);
+        });
+      }else if( type === 'update' ){
+        this.places[0].id = this.placeData['id'];
+        this.markerService.updateMarker(this.places).subscribe((response) => {
+          if (response.length > 0) {
+            this.router.navigate(['/places']);
+          }
+        }, error => {
+          console.log('Please Try Again Later', error);
+        });
+      }
     } else {
       alert('Please Add markers');
     }

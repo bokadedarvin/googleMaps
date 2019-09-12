@@ -11,7 +11,7 @@
   
   <ion-content> 
       <ion-fab vertical="top" horizontal="end" slot="fixed">
-        <ion-fab-button routerLink="/route-create">
+        <ion-fab-button (click)="createMarker()">
           <ion-icon name="add"></ion-icon>
         </ion-fab-button>
       </ion-fab>
@@ -29,16 +29,9 @@
             <h3>{{place.Type.name}}</h3>
             <p>{{place.description}}</p>
           </ion-label>
-          <ion-button color="warning" slot="end" ><ion-icon name="create"></ion-icon></ion-button>
-          <ion-button color="danger" slot="end" ><ion-icon name="trash"></ion-icon></ion-button> 
+          <ion-button color="warning" (click)='updateMarker(place)' slot="end" ><ion-icon name="create"></ion-icon></ion-button>
+          <ion-button color="danger" (click)='deleteMarker(place.id)' slot="end" ><ion-icon name="trash"></ion-icon></ion-button> 
         </ion-item>
-        <!-- <ion-item *ngFor="let place of places;let i = index;">
-          <ion-label>{{place.name}} - {{place.placeType}}</ion-label>
-          <ion-label class="ion-text-end">
-              <ion-button color="warning"><ion-icon name="create"></ion-icon></ion-button>
-              <ion-button color="danger"><ion-icon name="trash"></ion-icon></ion-button> 
-          </ion-label>
-        </ion-item>  -->
       </ion-list>
   </ion-content>
   

@@ -20,6 +20,17 @@ export class MarkerService extends ApiAbstractMethod {
     this.endPoint = 'create';
     return this.post(placeData);
   }
+  
+  updateMarker(placeData:[][]): Observable<any> {
+    this.endPoint = 'update';
+    return this.put(placeData);
+  }
+  
+  deletetMarker(markerId): Observable<any> {
+    this.endPoint = 'delete';
+    return this.delete(markerId);
+  }
+
   getMarkers(): Observable<any> {
     this.endPoint = 'getMarkerList';
     return this.get();
