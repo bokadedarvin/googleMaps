@@ -50,16 +50,6 @@ export class RouteCreatePage implements OnInit {
       Description: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z0-9 -.,]*$')]),
       Type: new FormControl('', [Validators.required]),
     });
-
-
-    const place = localStorage.getItem('place');
-    this.placeData = place ? JSON.parse(place) : null;
-    if( place ){
-      this.markerData.placeName = this.placeData['name'];
-      this.markerData.description = this.placeData['description'];
-      this.markerData.placeType = this.placeData['Type']['id'];
-      this.addMarkerToMap( this.placeData['lat'], this.placeData['long'], this.placeData['name'], this.placeData['description'], this.placeData['Type'] );
-    }
   }
 
   getErrorMessage(formControl) {
@@ -105,19 +95,35 @@ export class RouteCreatePage implements OnInit {
   getPlaceTypes() {
     this.typeService.getAllTypes().subscribe((response) => {
       this.placeTypes = response;
+      this.setUpdatedData();
     }, error => {
       console.log('Please Try Again Later', error);
     });
   }
 
+  setUpdatedData(){
+    const place = localStorage.getItem('place');
+    this.placeData = place ? JSON.parse(place) : null;
+    if (place) {
+      let placeIndex;
+      this.placeTypes.forEach((key, val) => {
+        if( this.placeData['Type']['id'] === key.id ){
+          placeIndex = val;
+        }
+      });
+      this.markerData.placeName = this.placeData['name'];
+      this.markerData.description = this.placeData['description'];
+      this.markerData.placeType = placeIndex;
+      this.addMarkerToMap(this.placeData['lat'], this.placeData['long'], this.placeData['name'], this.placeData['description'], this.placeData['Type']['id']);
+    }
+  }
+
   submitRoute(type) {
     if (this.places.length !== 0) {
-      const sendData = [];
       this.places.forEach((placeObject) => {
         placeObject.Type = this.placeTypes[placeObject.Type];
-        sendData.push(placeObject);
       })
-      if( type === 'create' ){
+      if (type === 'create') {
         this.markerService.addMarkers(this.places).subscribe((response) => {
           if (response.length > 0) {
             this.router.navigate(['/places']);
@@ -125,10 +131,13 @@ export class RouteCreatePage implements OnInit {
         }, error => {
           console.log('Please Try Again Later', error);
         });
-      }else if( type === 'update' ){
+      } else if (type === 'update') {
         this.places[0].id = this.placeData['id'];
+        this.places[0].name = this.markerData.placeName;
+        this.places[0].description = this.markerData.description;
+        this.places[0].Type = this.placeTypes[parseInt(this.markerData.placeType.toString())];
         this.markerService.updateMarker(this.places).subscribe((response) => {
-          if (response.length > 0) {
+          if (parseInt({ ...{ ...response }.raw }.affectedRows) > 0) {
             this.router.navigate(['/places']);
           }
         }, error => {

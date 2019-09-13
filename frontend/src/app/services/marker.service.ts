@@ -28,7 +28,7 @@ export class MarkerService extends ApiAbstractMethod {
   
   deletetMarker(markerId): Observable<any> {
     this.endPoint = 'delete';
-    return this.delete(markerId);
+    return this.put(markerId);
   }
 
   getMarkers(): Observable<any> {

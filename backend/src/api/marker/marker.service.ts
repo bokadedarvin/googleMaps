@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Marker } from './marker.entity';
 import {getConnection} from "typeorm";
+import { response } from 'express';
 @Injectable()
 export class MarkerService {
     constructor(@InjectRepository(Marker) private markerRepository: Repository<Marker>) { }
@@ -18,7 +19,9 @@ export class MarkerService {
     }
 
     async updateMarker(marker: Marker) {
-        return await this.markerRepository.update(marker.id, marker);
+        return await this.markerRepository.update(marker[0].id, marker[0]).then((response)=>{
+            return response;
+        });
     }
 
     async deleteMarker(markerId) {

@@ -21,11 +21,12 @@ export class MarkerController {
         }).catch(error => console.log(error));
     }
 
-    @Delete('delete')
+    @Put('delete')
     async delete(@Body() markerId:string) {
-        return await this.service.deleteMarker(markerId).then((response)=>{
-            return response;
-        }).catch(error => console.log(error));
+        console.log(markerId)
+        // return await this.service.deleteMarker(markerId).then((response)=>{
+        //     return response;
+        // }).catch(error => console.log(error));
     }
 
     @Get('getMarkerList')
