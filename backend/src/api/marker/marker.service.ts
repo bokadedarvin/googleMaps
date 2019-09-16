@@ -16,7 +16,13 @@ export class MarkerService {
     
     async searchMarkers(searchedKey:[][]) {
         let keyword = searchedKey[0]['keyword'];
-        return await this.markerRepository.find({relations: [ 'Type' ]}).then((response)=>{
+        return await this.markerRepository.find().then((response)=>{
+            return response;
+        });
+    }
+    
+    async getRoute(searchedData:[]) {
+        return await this.markerRepository.find().then((response)=>{
             return response;
         });
     }

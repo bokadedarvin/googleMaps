@@ -32,9 +32,9 @@ export class UserDashboardPage implements OnInit {
 
   ngOnInit() {
     //set google maps defaults
-    this.zoom = 2; 
-    this.latitude = 28.955317;
-    this.longitude = 77.702681;  
+    this.zoom; 
+    this.latitude;
+    this.longitude;  
 
     this.getPlaceTypes();
     this.placeTypes = [];
@@ -96,44 +96,15 @@ export class UserDashboardPage implements OnInit {
       to: this.searchForm.value.To,
       types: this.checked
     }
-    // this.commonService.post( '', this.userData );
-    console.log(this.searchData); 
-
-    this.zoom = 12; 
-    this.latitude = 28.955317;
-    this.longitude = 77.702681; 
-
-    this.polyline = [
-        {
-            latitude:  28.955317,
-            longitude: 77.702681,
-            speed: 50
-        },
-        {
-            latitude:  28.955217,
-            longitude: 77.702481,
-            speed: 50
-        },
-        {
-            latitude: 28.986454,
-            longitude: 77.683607,
-            speed: 20
-        },
-        {
-            latitude: 28.998466,
-            longitude: 77.660271,
-            speed: 20
-        },
-        {
-            latitude: 29.020867,
-            longitude: 77.669704,
-            speed: 20
-        },
-        {
-            latitude: 29.027922,
-            longitude: 77.645167,
-            speed: 25
-        }
-    ] 
+    this.markerService.getRoute(this.searchData).subscribe((response) => {
+      if( response ){
+        this.zoom = 12; 
+        this.latitude = response[0].lat;
+        this.longitude = response[0].long; 
+        this.polyline = response; 
+      }
+    }, error => {
+      console.log('Please Try Again Later', error);
+    });
   }
 }

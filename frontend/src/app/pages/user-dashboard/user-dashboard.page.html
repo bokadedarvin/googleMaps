@@ -13,23 +13,26 @@
   <form [formGroup]="searchForm" (ngSubmit)="searchRoute(form)">
     <ion-card> 
       <ion-card-content> 
+        <!--
           <ion-item>
-            <ion-label position="floating">From</ion-label>
-            <!-- <ion-input name="From" type="text" formControlName="From" required>
-            </ion-input> -->
-            <ion-auto-complete [dataProvider]="markerService" formControlName="From" required></ion-auto-complete>
+          <ion-label position="floating">From</ion-label>
+                 <ion-input name="From" type="text" formControlName="From" required>
+            </ion-input>
           </ion-item>
+        -->
+          <ion-auto-complete [dataProvider]="markerService" formControlName="From" required></ion-auto-complete>
           <ion-label color="danger" *ngIf="searchForm.controls.From.invalid && searchForm.controls.From.dirty">{{getErrorMessage('From')}}</ion-label>
-          <ion-item>
+          <!-- <ion-item>
             <ion-label position="floating">To</ion-label>
             <ion-input name="To" type="text" formControlName="To" required></ion-input>
-          </ion-item>
+          </ion-item> -->
+          <ion-auto-complete [dataProvider]="markerService" formControlName="To" required></ion-auto-complete>
           <ion-label color="danger" *ngIf="searchForm.controls.To.invalid && searchForm.controls.To.dirty">{{getErrorMessage('To')}}</ion-label>
           <div class="ion-padding-top">
             <ion-list>
               <ion-item *ngFor="let placeType of placeTypes">
                 <ion-label>{{placeType.name}}</ion-label>
-                <ion-checkbox (ionChange)="addCheckbox($event,placeType.value)" slot="end"></ion-checkbox>
+                <ion-checkbox (ionChange)="addCheckbox($event,placeType.id)" slot="end"></ion-checkbox>
               </ion-item>
             </ion-list>
           </div>
@@ -41,15 +44,15 @@
     </form> 
     <ion-card class="welcome-card">  
       <ion-card-content>
-        <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
+        <agm-map [latitude]="latitude | number" [longitude]="longitude | number" [zoom]="zoom">
             <ng-container>
               <agm-polyline [strokeColor]="blue">
                 <agm-marker *ngFor="let place of polyline; let i = index"
-                    [latitude]="place.latitude" 
-                    [longitude]="place.longitude">
+                    [latitude]="place.lat | number" 
+                    [longitude]="place.long | number">
                     <agm-info-window>{{i+1}} - {{place | json}}</agm-info-window>
                 </agm-marker>
-                <agm-polyline-point *ngFor="let point of polyline" [latitude]="point.latitude" [longitude]="point.longitude">
+                <agm-polyline-point *ngFor="let point of polyline" [latitude]="point.lat | number" [longitude]="point.long | number">
                   </agm-polyline-point>
               </agm-polyline>
             </ng-container>

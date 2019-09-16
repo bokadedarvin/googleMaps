@@ -14,6 +14,13 @@ export class MarkerController {
         }).catch(error => console.log(error));
     }
 
+    @Post('getRoute')
+    async getRoute(@Body() searchData: []) {
+        return await this.service.getRoute(searchData).then((response)=>{
+            return response;
+        }).catch(error => console.log(error));
+    }
+
     @Put('update')
     async update(@Body() marker: Marker) {
         return await this.service.updateMarker(marker).then((response)=>{

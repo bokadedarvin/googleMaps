@@ -15,7 +15,7 @@ export class MarkerService extends ApiAbstractMethod implements AutoCompleteServ
   listLimit: number;
 
   labelAttribute = 'name';
-  formValueAttribute = 'numericCode';
+  formValueAttribute = 'id';
 
   constructor(public http: HttpClient) {
     super(http);
@@ -27,12 +27,16 @@ export class MarkerService extends ApiAbstractMethod implements AutoCompleteServ
     let searchData = [{
       keyword: keyword
     }]
+    return this.post(searchData).pipe(
+        (result) => {
+          return result;
+        }
+    );
+  }
+
+  getRoute(searchData: []): Observable<any> {
+    this.endPoint = 'getRoute';
     return this.post(searchData);
-    // return this.http.get('https://restcountries.eu/rest/v1/name/' + keyword).pipe(
-    //    (result) => {
-    //       return result;
-    //    }
-    // );
   }
 
   addMarkers(placeData: [][]): Observable<any> {
