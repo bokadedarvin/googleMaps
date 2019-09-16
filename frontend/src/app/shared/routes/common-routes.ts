@@ -30,5 +30,13 @@ export const CommonRoutes: Routes = [
   {
     path: 'route-view',
     loadChildren: () => import('../../pages/route-view/route-view.module').then(m => m.RouteViewPageModule)
+  },
+  {
+    path: 'feedback',
+    loadChildren: () => import('../../pages/feedback/feedback.module').then(m => m.FeedbackPageModule)
+  },
+  {
+    path: 'faqs',
+    loadChildren: () => import('../../pages/faqs/faqs.module').then(m => m.FaqsPageModule)
   }
 ];

@@ -23,6 +23,8 @@ const routes: Routes = [
     children: FullLayoutRoutes
 
   },
+  // { path: 'feedback', loadChildren: './pages/feedback/feedback.module#FeedbackPageModule' },
+  // { path: 'faqs', loadChildren: './pages/faqs/faqs.module#FaqsPageModule' },
   // { path: 'user-history', loadChildren: './pages/user-history/user-history.module#UserHistoryPageModule' },
 
   // { path: 'user-dashboard', loadChildren: './pages/user-dashboard/user-dashboard.module#UserDashboardPageModule' },

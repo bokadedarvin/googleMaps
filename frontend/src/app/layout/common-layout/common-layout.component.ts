@@ -29,6 +29,16 @@ export class CommonLayoutComponent implements OnInit {
       url: '/user-history',
       icon: 'stats'
     },
+    {
+      title: 'Feedback & Review',
+      url: '/feedback',
+      icon: 'chatboxes'
+    },
+    {
+      title: 'FAQs',
+      url: '/faqs',
+      icon: 'help-circle'
+    },
     // {
     //   title: 'Route Create',
     //   url: '/route-create',
