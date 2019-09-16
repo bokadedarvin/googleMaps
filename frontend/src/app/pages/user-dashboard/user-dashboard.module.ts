@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { UserDashboardPage } from './user-dashboard.page';
 import { AgmCoreModule } from '@agm/core';
+import { AutoCompleteModule } from 'ionic4-auto-complete';
 
 const routes: Routes = [
   {
@@ -20,6 +21,7 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    AutoCompleteModule,
     IonicModule,
     AgmCoreModule,
     RouterModule.forChild(routes)

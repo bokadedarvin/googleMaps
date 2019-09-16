@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { AgmCoreModule, MapsAPILoader } from '@agm/core';
+import { MarkerService } from 'src/app/services/marker.service';
+import { TypeService } from 'src/app/services/type.service';
 
 @Component({
   selector: 'app-user-dashboard',
   templateUrl: './user-dashboard.page.html',
   styleUrls: ['./user-dashboard.page.scss'],
+  providers: [MarkerService],
 })
 export class UserDashboardPage implements OnInit {
   searchForm: FormGroup;
@@ -22,7 +25,9 @@ export class UserDashboardPage implements OnInit {
   public polyline: Array<any>;
 
   constructor(
+    private markerService: MarkerService,
     private mapsAPILoader: MapsAPILoader,
+    private typeService: TypeService
   ) {}
 
   ngOnInit() {
@@ -31,34 +36,22 @@ export class UserDashboardPage implements OnInit {
     this.latitude = 28.955317;
     this.longitude = 77.702681;  
 
-    this.placeTypes = [
-      {
-        name : 'Cafeteria',
-        value : 'cafeteria',
-      },
-      {
-        name : 'Library',
-        value : 'library',
-      },
-      {
-        name : 'Class Room',
-        value : 'classroom',
-      },
-      {
-        name : 'Office',
-        value : 'office',
-      },
-      {
-        name : 'Play Ground',
-        value : 'playground',
-      },
-    ]
+    this.getPlaceTypes();
+    this.placeTypes = [];
     
     this.searchForm = new FormGroup({
       From: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z0-9 -.,]*$')]),
       To: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z0-9 -.,]*$')]),
     }); 
   } 
+
+  getPlaceTypes() {
+    this.typeService.getAllTypes().subscribe((response) => {
+      this.placeTypes = response;
+    }, error => {
+      console.log('Please Try Again Later', error);
+    });
+  }
 
   getErrorMessage(formControl) {
     let errorMessage;

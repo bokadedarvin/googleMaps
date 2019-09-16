@@ -32,4 +32,9 @@ export class MarkerController {
     async all() {
         return this.service.getMarkerList();
     }
+
+    @Post('search')
+    async search(@Body() searchedData:[][]) {
+        return this.service.searchMarkers(searchedData);
+    }
 }

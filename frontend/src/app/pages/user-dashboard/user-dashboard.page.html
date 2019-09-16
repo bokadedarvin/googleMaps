@@ -15,8 +15,9 @@
       <ion-card-content> 
           <ion-item>
             <ion-label position="floating">From</ion-label>
-            <ion-input name="From" type="text" formControlName="From" required>
-            </ion-input>
+            <!-- <ion-input name="From" type="text" formControlName="From" required>
+            </ion-input> -->
+            <ion-auto-complete [dataProvider]="markerService" formControlName="From" required></ion-auto-complete>
           </ion-item>
           <ion-label color="danger" *ngIf="searchForm.controls.From.invalid && searchForm.controls.From.dirty">{{getErrorMessage('From')}}</ion-label>
           <ion-item>

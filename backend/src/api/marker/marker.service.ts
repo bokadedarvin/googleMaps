@@ -13,6 +13,13 @@ export class MarkerService {
             relations: [ 'Type' ]
         });
     }
+    
+    async searchMarkers(searchedKey:[][]) {
+        let keyword = searchedKey[0]['keyword'];
+        return await this.markerRepository.find({relations: [ 'Type' ]}).then((response)=>{
+            return response;
+        });
+    }
 
     async addMarkers(marker: Array<Marker>) {
         return await this.markerRepository.save(marker);
