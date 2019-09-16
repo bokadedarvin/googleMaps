@@ -36,10 +36,15 @@ export class PlacesPage implements AfterViewInit {
     this.router.navigate(['/route-create']);
   }
 
-  deleteMarker(markerId) {
-    console.log(markerId);
-    this.markerService.deletetMarker({deleteId: markerId}).subscribe((response) => {
-      (response) && (this.markers = response);
+  deleteMarker(markerId, markerIndex) {
+    this.markerService.deletetMarker({ deleteId: markerId }).subscribe((response) => {
+      if (parseInt({ ...{ ...response }.raw }.affectedRows) > 0) {
+        if (parseInt(this.markers.length) > 1) {
+          this.markers.splice(markerIndex, 1);
+        } else {
+          this.markers = [];
+        }
+      }
     }, error => {
       console.log('Please Try Again Later', error);
     });

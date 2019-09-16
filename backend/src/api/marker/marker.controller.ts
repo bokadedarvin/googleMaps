@@ -23,10 +23,9 @@ export class MarkerController {
 
     @Put('delete')
     async delete(@Body() markerId:string) {
-        console.log(markerId)
-        // return await this.service.deleteMarker(markerId).then((response)=>{
-        //     return response;
-        // }).catch(error => console.log(error));
+        return await this.service.deleteMarker(markerId['deleteId']).then((response)=>{
+            return response;
+        }).catch(error => console.log(error));
     }
 
     @Get('getMarkerList')
