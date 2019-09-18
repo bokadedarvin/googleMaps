@@ -22,13 +22,15 @@ export class Marker {
 
     @Column({
         nullable: false,
+        type: "double",
     })
-    lat: string;
+    lat: number;
 
     @Column({
         nullable: false,
+        type: "double",
     })
-    long: string; 
+    long: number; 
 
     @ManyToOne(type => Type, type => type.id)
     @JoinColumn() // this decorator is optional for @ManyToOne, but required for @OneToOne

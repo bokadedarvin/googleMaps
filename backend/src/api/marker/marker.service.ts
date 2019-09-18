@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { Marker } from './marker.entity';
 import {getConnection} from "typeorm";
 import { response } from 'express';
+import {Like} from "typeorm";
 @Injectable()
 export class MarkerService {
     constructor(@InjectRepository(Marker) private markerRepository: Repository<Marker>) { }
@@ -16,7 +17,9 @@ export class MarkerService {
     
     async searchMarkers(searchedKey:[][]) {
         let keyword = searchedKey[0]['keyword'];
-        return await this.markerRepository.find().then((response)=>{
+        return await this.markerRepository.find({
+            name: Like(`%${keyword}%`)
+        }).then((response)=>{
             return response;
         });
     }
@@ -28,6 +31,7 @@ export class MarkerService {
     }
 
     async addMarkers(marker: Array<Marker>) {
+        console.log(marker);
         return await this.markerRepository.save(marker);
     }
 
