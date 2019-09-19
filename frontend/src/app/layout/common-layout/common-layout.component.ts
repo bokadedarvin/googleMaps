@@ -25,6 +25,11 @@ export class CommonLayoutComponent implements OnInit {
       icon: 'navigate'
     },
     {
+      title: 'Mapping',
+      url: '/places-mapping',
+      icon: 'git-merge'
+    },
+    {
       title: 'User History',
       url: '/user-history',
       icon: 'stats'

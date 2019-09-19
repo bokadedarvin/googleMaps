@@ -24,6 +24,10 @@ export const CommonRoutes: Routes = [
     loadChildren: () => import('../../pages/route-create/route-create.module').then(m => m.RouteCreatePageModule)
   },
   {
+    path: 'places-mapping',
+    loadChildren: () => import('../../pages/places-mapping/places-mapping.module').then(m => m.PlacesMappingPageModule)
+  },
+  {
     path: 'user-history',
     loadChildren: () => import('../../pages/user-history/user-history.module').then(m => m.UserHistoryPageModule)
   },

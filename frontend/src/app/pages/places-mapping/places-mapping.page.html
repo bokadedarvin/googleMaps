@@ -1,0 +1,42 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>
+        Places Mapping
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content> 
+      <form [formGroup]="placeMappingForm" (ngSubmit)="submitPlaceMapping(form)">
+        <ion-card class="welcome-card"> 
+          <ion-card-content> 
+            <ion-row>
+              <ion-col>  
+                <ion-item>
+                  <ion-label>From Place</ion-label>
+                  <ion-select name="FromPlace" formControlName="FromPlace" (ionChange)="selectedPlace($event)">
+                    <ion-select-option *ngFor="let marker of markers" value="{{marker.id}}">{{marker.name}}</ion-select-option>
+                  </ion-select>
+                </ion-item>
+              </ion-col>
+              <ion-col>  
+                <ion-item>
+                  <ion-label>To Place</ion-label>
+                  <ion-select name="ToPlace" formControlName="ToPlace" multiple>
+                    <ion-select-option *ngFor="let marker of remainingMarkers" value="{{marker.id}}">{{marker.name}}</ion-select-option>
+                  </ion-select>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+            <div>  
+              <ion-button type="submit" slot="end" color="primary" [disabled]="placeMappingForm.invalid"><ion-icon name="send"></ion-icon> Submit</ion-button>
+            </div>
+          </ion-card-content>
+        </ion-card> 
+      </form>
+  </ion-content>
+  
+  

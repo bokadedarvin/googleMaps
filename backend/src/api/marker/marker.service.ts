@@ -41,6 +41,12 @@ export class MarkerService {
         });
     }
 
+    async saveMapping(mapdData) {
+        return await this.markerRepository.save(mapdData).then((response)=>{
+            return response;
+        });
+    }
+
     async deleteMarker(markerId) {
         return await this.markerRepository.delete(markerId);
     }
