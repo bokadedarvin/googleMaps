@@ -44,9 +44,4 @@ export class MarkerController {
     async search(@Body() searchedData:[][]) {
         return this.service.searchMarkers(searchedData);
     }
-
-    @Post('mapping')
-    async submitMapping(@Body() mapdData:{}) {
-        return this.service.saveMapping(mapdData);
-    }
 }

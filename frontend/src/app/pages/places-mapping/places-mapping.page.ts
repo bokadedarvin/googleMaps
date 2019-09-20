@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MarkerService } from 'src/app/services/marker.service';
+import { MappingService } from 'src/app/services/mapping.service';
 
 @Component({
   selector: 'app-places-mapping',
@@ -13,7 +14,7 @@ export class PlacesMappingPage implements OnInit {
   markers: any;
   remainingMarkers:any;
 
-  constructor(private markerService: MarkerService, private router: Router) { }
+  constructor(private markerService: MarkerService,private mappingService: MappingService, private router: Router) { }
 
   public places: Array<any>;
   ngOnInit() {
@@ -45,7 +46,7 @@ export class PlacesMappingPage implements OnInit {
       fromPlace : this.placeMappingForm.controls.FromPlace.value,
       toPlace : this.placeMappingForm.controls.ToPlace.value
     }
-    this.markerService.submitMapping(placeMap).subscribe((response) => {
+    this.mappingService.submitMapping(placeMap).subscribe((response) => {
       if (parseInt({ ...{ ...response }.raw }.affectedRows) > 0) {
         this.router.navigate(['/home']);
       }
