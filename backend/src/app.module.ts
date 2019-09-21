@@ -6,6 +6,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { RoleModule } from './api/role/role.module';
 import { MarkerModule } from './api/marker/marker.module';
 import { TypeModule } from './api/type/type.module';
+import { MappingModule } from './api/mapping/mapping.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { TypeModule } from './api/type/type.module';
     RoleModule,
     MarkerModule,
     TypeModule,
+    MappingModule,
   ],
   controllers: [AppController],
   providers: [AppService],

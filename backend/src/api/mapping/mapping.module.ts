@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
-import { MappingController } from './mapping.controller';
+import { MappingService } from './mapping.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Mapping } from './mapping.entity';
-import { MappingService } from './mapping.service';
+import { MappingController } from './mapping.controller';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Mapping]) ],

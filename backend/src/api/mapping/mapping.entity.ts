@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, JoinColumn, ManyToOne, Unique } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, JoinColumn, ManyToOne, Unique, OneToMany, ManyToMany } from 'typeorm';
 import { Marker } from '../marker/marker.entity';
 
 @Entity()
@@ -18,7 +18,7 @@ export class Mapping {
     })
     mappingplace: string;
 
-    @ManyToOne(type => Marker, type => type.id)
+    @ManyToMany(type => Marker, type => type.id)
     @JoinColumn() // this decorator is optional for @ManyToOne, but required for @OneToOne
     Type: Marker;
 }

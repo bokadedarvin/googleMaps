@@ -42,11 +42,15 @@ export class PlacesMappingPage implements OnInit {
     });
   }
   submitPlaceMapping() {
-    const placeMap = {
-      fromPlace : this.placeMappingForm.controls.FromPlace.value,
-      toPlace : this.placeMappingForm.controls.ToPlace.value
+    let mapPlace = this.placeMappingForm.controls.ToPlace.value;
+    let placeMapData = [];
+    for( var i=0; i<mapPlace.length; i++ ){
+      placeMapData.push({
+        from : this.placeMappingForm.controls.FromPlace.value,
+        mappingplace : mapPlace[i]
+      });
     }
-    this.mappingService.submitMapping(placeMap).subscribe((response) => {
+    this.mappingService.submitMapping(placeMapData).subscribe((response) => {
       if (parseInt({ ...{ ...response }.raw }.affectedRows) > 0) {
         this.router.navigate(['/home']);
       }
