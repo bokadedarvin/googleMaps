@@ -2,6 +2,7 @@ import { Entity, Column, PrimaryGeneratedColumn, JoinColumn, ManyToOne, Unique, 
 import { Marker } from '../marker/marker.entity';
 
 @Entity()
+@Unique(["from","mappingplace"])
 export class Mapping {
     @PrimaryGeneratedColumn()
     id: number;

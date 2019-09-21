@@ -7,6 +7,7 @@ import { RoleModule } from './api/role/role.module';
 import { MarkerModule } from './api/marker/marker.module';
 import { TypeModule } from './api/type/type.module';
 import { MappingModule } from './api/mapping/mapping.module';
+import { FeedbackModule } from 'dist/api/feedback/feedback.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { MappingModule } from './api/mapping/mapping.module';
     MarkerModule,
     TypeModule,
     MappingModule,
+    FeedbackModule
   ],
   controllers: [AppController],
   providers: [AppService],

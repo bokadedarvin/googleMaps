@@ -51,7 +51,7 @@ export class PlacesMappingPage implements OnInit {
       });
     }
     this.mappingService.submitMapping(placeMapData).subscribe((response) => {
-      if (parseInt({ ...{ ...response }.raw }.affectedRows) > 0) {
+      if( parseInt( response.length ) > 0) {
         this.router.navigate(['/home']);
       }
     }, error => {
