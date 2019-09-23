@@ -18,7 +18,7 @@
                 <ion-item>
                   <ion-label>From Place</ion-label>
                   <ion-select name="FromPlace" formControlName="FromPlace" (ionChange)="selectedPlace($event)">
-                    <ion-select-option *ngFor="let marker of markers" value="{{marker.id}}">{{marker.name}}</ion-select-option>
+                    <ion-select-option *ngFor="let marker of markers;let i = index" value="{{i}}">{{marker.name}}</ion-select-option>
                   </ion-select>
                 </ion-item>
               </ion-col>
@@ -26,7 +26,7 @@
                 <ion-item>
                   <ion-label>To Place</ion-label>
                   <ion-select name="ToPlace" formControlName="ToPlace" multiple>
-                    <ion-select-option *ngFor="let marker of remainingMarkers" value="{{marker.id}}">{{marker.name}}</ion-select-option>
+                    <ion-select-option *ngFor="let marker of remainingMarkers;let i = index" value="{{i}}">{{marker.name}}</ion-select-option>
                   </ion-select>
                 </ion-item>
               </ion-col>

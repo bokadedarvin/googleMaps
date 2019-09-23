@@ -28,7 +28,7 @@ export class FeedbackPage implements OnInit {
       rating: '4'
     }
     this.feedbackService.submitFeedback(feedbackData).subscribe((response) => {
-      if (parseInt(response.length) > 0) {
+      if(response) {
         this.router.navigate(['/home']);
       }
     }, error => {

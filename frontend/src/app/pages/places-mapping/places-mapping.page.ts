@@ -12,9 +12,9 @@ import { MappingService } from 'src/app/services/mapping.service';
 export class PlacesMappingPage implements OnInit {
   placeMappingForm: FormGroup;
   markers: any;
-  remainingMarkers:any;
+  remainingMarkers: any;
 
-  constructor(private markerService: MarkerService,private mappingService: MappingService, private router: Router) { }
+  constructor(private markerService: MarkerService, private mappingService: MappingService, private router: Router) { }
 
   public places: Array<any>;
   ngOnInit() {
@@ -33,25 +33,25 @@ export class PlacesMappingPage implements OnInit {
     });
   }
 
-  selectedPlace(event){
+  selectedPlace(event) {
     this.remainingMarkers = [];
     this.markers.forEach((key, val) => {
-      if( key.id !== parseInt(event.detail.value) ){
-        this.remainingMarkers.push( key );
+      if (key.id !== parseInt(event.detail.value)) {
+        this.remainingMarkers.push(key);
       }
     });
   }
   submitPlaceMapping() {
     let mapPlace = this.placeMappingForm.controls.ToPlace.value;
     let placeMapData = [];
-    for( var i=0; i<mapPlace.length; i++ ){
+    for (var i = 0; i < mapPlace.length; i++) {
       placeMapData.push({
-        from : this.placeMappingForm.controls.FromPlace.value,
-        mappingplace : mapPlace[i]
+        from: this.markers[parseInt(this.placeMappingForm.controls.FromPlace.value)],
+        to: this.remainingMarkers[parseInt(mapPlace[i])]
       });
     }
     this.mappingService.submitMapping(placeMapData).subscribe((response) => {
-      if( parseInt( response.length ) > 0) {
+      if (parseInt(response.length) > 0) {
         this.router.navigate(['/home']);
       }
     }, error => {

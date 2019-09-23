@@ -24,7 +24,6 @@ export class Feedback {
     description: string;
 
     @Column({
-        length: 10,
         nullable: false,
     })
     rating: number;
