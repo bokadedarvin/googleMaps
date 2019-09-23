@@ -8,6 +8,7 @@ import { IonicModule } from '@ionic/angular';
 import { FeedbackPage } from './feedback.page';
 import { AgmCoreModule } from '@agm/core';
 import { FeedbackService } from 'src/app/services/feedback.service';
+import { IonicRatingModule } from 'ionic4-rating';
 
 const routes: Routes = [
   {
@@ -23,6 +24,7 @@ const routes: Routes = [
     ReactiveFormsModule,
     IonicModule,
     AgmCoreModule,
+    IonicRatingModule,
     RouterModule.forChild(routes)
   ],
   declarations: [FeedbackPage],

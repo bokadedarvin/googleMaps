@@ -13,6 +13,10 @@
     <ion-card class="welcome-card"> 
       <form [formGroup]="feedbackForm" (ngSubmit)="submitFeedback(form)">
         <ion-card-content>   
+            <rating formControlName="Rate" [rate]="rate"
+              readonly="false"
+              size="default">
+            </rating>
             <ion-item>
               <ion-label position="floating">Description</ion-label>
               <ion-textarea name="feedback" formControlName="feedback"></ion-textarea>

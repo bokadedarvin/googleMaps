@@ -16,6 +16,7 @@ export class FeedbackPage implements OnInit {
 
   ngOnInit() {
     this.feedbackForm = new FormGroup({
+      Rate: new FormControl('', [Validators.required]),
       feedback: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z0-9 -.,]*$')]),
     });
   }
@@ -25,7 +26,7 @@ export class FeedbackPage implements OnInit {
       name: JSON.parse(localStorage.userData)[0].firstName +' '+ JSON.parse(localStorage.userData)[0].lastName,
       email: JSON.parse(localStorage.userData)[0].email,
       description: this.feedbackForm.controls.feedback.value,
-      rating: '4'
+      rating: this.feedbackForm.controls.Rate.value
     }
     this.feedbackService.submitFeedback(feedbackData).subscribe((response) => {
       if(response) {
