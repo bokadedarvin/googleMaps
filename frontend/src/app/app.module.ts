@@ -12,10 +12,11 @@ import { AgmCoreModule } from '@agm/core';
 import { CommonLayoutComponent } from './layout/common-layout/common-layout.component';
 import { FullLayoutComponent } from './layout/full-layout/full-layout.component';
 import { HttpClientModule } from '@angular/common/http';
+import { ModalComponent } from './shared/modal/modal.component';
 
 @NgModule({
-  declarations: [AppComponent,CommonLayoutComponent,FullLayoutComponent],
-  entryComponents: [],
+  declarations: [AppComponent,CommonLayoutComponent,FullLayoutComponent,ModalComponent],
+  entryComponents: [ModalComponent],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),

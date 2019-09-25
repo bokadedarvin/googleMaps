@@ -8,7 +8,7 @@ export class MarkerController {
     constructor(private service: MarkerService) { }
 
     @Post('create')
-    async create(@Body() marker: Marker) {
+    async create(@Body() marker: Array<Marker>) {
         return await this.service.addMarkers(marker).then((response)=>{
             return response;
         }).catch(error => console.log(error));

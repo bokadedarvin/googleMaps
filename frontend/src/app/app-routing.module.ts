@@ -23,6 +23,7 @@ const routes: Routes = [
     children: FullLayoutRoutes
 
   },
+  // { path: 'modal', loadChildren: './shared/modal/modal.module#ModalPageModule' },
   // { path: 'places-mapping', loadChildren: './pages/places-mapping/places-mapping.module#PlacesMappingPageModule' },
   // { path: 'feedback', loadChildren: './pages/feedback/feedback.module#FeedbackPageModule' },
   // { path: 'faqs', loadChildren: './pages/faqs/faqs.module#FaqsPageModule' },

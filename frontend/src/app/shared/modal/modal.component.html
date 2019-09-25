@@ -1,0 +1,30 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>
+        <ion-list>
+          <ion-label slot="start">
+            Places - {{placeList[0].from.name}}
+          </ion-label>
+          <ion-label slot="end">
+            <ion-icon name="close" (click)="dismiss()"></ion-icon>
+          </ion-label>
+        </ion-list>
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content> 
+    <ion-list>
+      <ion-item *ngFor="let place of placeList; let i = index;">
+        <ion-label>
+          <h2>{{place.to.name}}</h2>
+          <p>{{place.to.description}}</p>
+        </ion-label>
+        <ion-button color="danger" (click)='deleteMarker(place.id,i)' slot="end" ><ion-icon name="trash"></ion-icon></ion-button> 
+      </ion-item>
+    </ion-list>
+  </ion-content>
+  

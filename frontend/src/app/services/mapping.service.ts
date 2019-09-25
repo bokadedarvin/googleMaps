@@ -17,6 +17,11 @@ export class MappingService extends ApiAbstractMethod{
     this.module = 'mapping'
   }
 
+  getMapping(placeData): Observable<any> {
+    this.endPoint = 'getData';
+    return this.post(placeData);
+  }
+
   submitMapping(placeData): Observable<any> {
     this.endPoint = 'submitMapping';
     return this.post(placeData);

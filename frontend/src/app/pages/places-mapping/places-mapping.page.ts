@@ -3,6 +3,8 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MarkerService } from 'src/app/services/marker.service';
 import { MappingService } from 'src/app/services/mapping.service';
+import { ModalController } from '@ionic/angular';
+import { ModalComponent } from '../../shared/modal/modal.component';
 
 @Component({
   selector: 'app-places-mapping',
@@ -13,8 +15,9 @@ export class PlacesMappingPage implements OnInit {
   placeMappingForm: FormGroup;
   markers: any;
   remainingMarkers: any;
+  mapList: any;
 
-  constructor(private markerService: MarkerService, private mappingService: MappingService, private router: Router) { }
+  constructor(private markerService: MarkerService, private mappingService: MappingService, private router: Router, public modalController: ModalController) { }
 
   public places: Array<any>;
   ngOnInit() {
@@ -23,6 +26,16 @@ export class PlacesMappingPage implements OnInit {
       FromPlace: new FormControl('', [Validators.required]),
       ToPlace: new FormControl('', [Validators.required]),
     });
+  }
+
+  async presentModal() {
+    const modal = await this.modalController.create({
+      component: ModalComponent,
+      componentProps: {
+        'placeData': this.mapList,
+      }
+    });
+    return await modal.present();
   }
 
   getMarkers() {
@@ -41,6 +54,18 @@ export class PlacesMappingPage implements OnInit {
       }
     });
   }
+
+  viewMarker(index){
+    this.mappingService.getMapping(this.markers[index]).subscribe((response) => {
+      if (parseInt(response.length) > 0) {
+        this.mapList = response;
+        this.presentModal();
+      }
+    }, error => {
+      console.log('Please Try Again Later', error);
+    });
+  }
+
   submitPlaceMapping() {
     let mapPlace = this.placeMappingForm.controls.ToPlace.value;
     let placeMapData = [];

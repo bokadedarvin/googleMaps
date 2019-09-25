@@ -36,6 +36,26 @@
             </div>
           </ion-card-content>
         </ion-card> 
+        <ion-card> 
+          <ion-card-content> 
+              <ion-list>
+                  <ion-list-header>
+                    All Places
+                  </ion-list-header>
+                <ion-item *ngFor="let place of markers; let i = index;">
+                  <ion-avatar slot="start">
+                    <ion-icon name="{{place.Type.icon}}"></ion-icon>
+                  </ion-avatar>
+                  <ion-label>
+                    <h2>{{place.name}}</h2>
+                    <h3>{{place.Type.name}}</h3>
+                    <p>{{place.description}}</p>
+                  </ion-label>
+                  <ion-button color="primary" (click)='viewMarker(i)' slot="end" ><ion-icon name="eye"></ion-icon></ion-button> 
+                </ion-item>
+              </ion-list>
+          </ion-card-content>
+        </ion-card> 
       </form>
   </ion-content>
   

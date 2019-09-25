@@ -11,4 +11,9 @@ export class MappingController {
     async submitMapping(@Body() mapdData:Mapping) {
         return this.service.saveMapping(mapdData);
     }
+
+    @Post('getData')
+    async getMapping(@Body() mappingData:any) {
+        return this.service.getMappingOnId(mappingData);
+    }
 }
