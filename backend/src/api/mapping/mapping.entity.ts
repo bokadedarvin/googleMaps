@@ -6,28 +6,10 @@ import { Marker } from '../marker/marker.entity';
 export class Mapping {
     @PrimaryGeneratedColumn()
     id: number;
-
-    // @Column({
-    //     nullable: false,
-    // })
-    // from: number;
-
-    // @Column({
-    //     nullable: false,
-    // })
-    // to: number;
-
-    @ManyToMany(type => Marker)
-    @JoinColumn({
-        name: "from",
-        referencedColumnName: "id"
-    }) // this decorator is optional for @ManyToOne, but required for @OneToOne
-    From: Marker;
-
-    @ManyToMany(type => Marker)
-    @JoinColumn({
-        name: "to",
-        referencedColumnName: "id"
-    }) // this decorator is optional for @ManyToOne, but required for @OneToOne
-    To: Marker;
+    @ManyToOne(type => Marker, marker => marker.id)
+    @JoinColumn() // this decorator is optional for @ManyToOne, but required for @OneToOne
+    from: Marker;
+    @ManyToOne(type => Marker, marker => marker.id)
+    @JoinColumn() // this decorator is optional for @ManyToOne, but required for @OneToOne
+    to: Marker;
 }
