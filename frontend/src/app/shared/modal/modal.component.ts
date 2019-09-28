@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { NavParams } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
 import { MappingService } from 'src/app/services/mapping.service';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-modal',
@@ -10,7 +11,7 @@ import { MappingService } from 'src/app/services/mapping.service';
 })
 export class ModalComponent implements OnInit {
    placeList: any;
-  constructor(navParams: NavParams,public modalController: ModalController,private mappingService: MappingService) {
+  constructor(navParams: NavParams,public modalController: ModalController,private mappingService: MappingService,public alertController: AlertController) {
     this.placeList = navParams.data.placeData;
    }
 
@@ -21,7 +22,31 @@ export class ModalComponent implements OnInit {
       'dismissed': true
     });
   }
+  
+  async deleteMappingConfirm(mapId,mapIndex) {
+    const alert = await this.alertController.create({
+      header: 'Delete Confirm!',
+      message: 'Are you sure? You wants to delete this mapping!!!',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Okay',
+          handler: () => {
+            console.log('Confirm Okay');
+            this.deleteMapping(mapId,mapIndex);
+          }
+        }
+      ]
+    });
 
+    await alert.present();
+  }
 
   deleteMapping(mapId,mapIndex){
     this.mappingService.deletetMapping({ deleteId: mapId }).subscribe((response) => {

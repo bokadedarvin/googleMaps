@@ -23,7 +23,7 @@
           <h2>{{place.to.name}}</h2>
           <p>{{place.to.description}}</p>
         </ion-label>
-        <ion-button color="danger" (click)='deleteMapping(place.id,i)' slot="end" ><ion-icon name="trash"></ion-icon></ion-button> 
+        <ion-button color="danger" (click)='deleteMappingConfirm(place.id,i)' slot="end" ><ion-icon name="trash"></ion-icon></ion-button> 
       </ion-item>
     </ion-list>
   </ion-content>

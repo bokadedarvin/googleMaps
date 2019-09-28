@@ -1,6 +1,7 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MarkerService } from 'src/app/services/marker.service';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-places',
@@ -11,11 +12,36 @@ import { MarkerService } from 'src/app/services/marker.service';
 export class PlacesPage implements AfterViewInit {
   markers: any;
 
-  constructor(private markerService: MarkerService, private router: Router) { }
+  constructor(private markerService: MarkerService, private router: Router,public alertController: AlertController) { }
 
   public places: Array<any>;
   ngAfterViewInit() {
     this.getMarkers();
+  }
+
+  async presentAlertConfirm(placeId,index) {
+    const alert = await this.alertController.create({
+      header: 'Delete Confirm!',
+      message: 'Are you sure? You wants to delete this place!!!',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Okay',
+          handler: () => {
+            console.log('Confirm Okay');
+            this.deleteMarker(placeId,index)
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 
   getMarkers() {

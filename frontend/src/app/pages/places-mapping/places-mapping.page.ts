@@ -5,7 +5,7 @@ import { MarkerService } from 'src/app/services/marker.service';
 import { MappingService } from 'src/app/services/mapping.service';
 import { ModalController } from '@ionic/angular';
 import { ModalComponent } from '../../shared/modal/modal.component';
-
+import { AlertController } from '@ionic/angular';
 @Component({
   selector: 'app-places-mapping',
   templateUrl: './places-mapping.page.html',
@@ -17,7 +17,7 @@ export class PlacesMappingPage implements OnInit {
   remainingMarkers: any;
   mapList: any;
 
-  constructor(private markerService: MarkerService, private mappingService: MappingService, private router: Router, public modalController: ModalController) { }
+  constructor(private markerService: MarkerService, private mappingService: MappingService, private router: Router, public modalController: ModalController,public alertController: AlertController) { }
 
   public places: Array<any>;
   ngOnInit() {
@@ -38,6 +38,22 @@ export class PlacesMappingPage implements OnInit {
     return await modal.present();
   }
 
+  async noMappingFound() {
+    const alert = await this.alertController.create({
+      header: 'No Mapping',
+      message: 'No Mapping Found on this place',
+      buttons: [
+        {
+          text: 'Okay',
+          handler: () => {
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
   getMarkers() {
     this.markerService.getMarkers().subscribe((response) => {
       this.markers = response;
@@ -49,7 +65,7 @@ export class PlacesMappingPage implements OnInit {
   selectedPlace(event) {
     this.remainingMarkers = [];
     this.markers.forEach((key, val) => {
-      if (key.id !== parseInt(event.detail.value)) {
+      if (val !== parseInt(event.detail.value)) {
         this.remainingMarkers.push(key);
       }
     });
@@ -60,6 +76,8 @@ export class PlacesMappingPage implements OnInit {
       if (parseInt(response.length) > 0) {
         this.mapList = response;
         this.presentModal();
+      }else{
+        this.noMappingFound();
       }
     }, error => {
       console.log('Please Try Again Later', error);
