@@ -27,4 +27,9 @@ export class MappingService extends ApiAbstractMethod{
     return this.post(placeData);
   }
 
+  deletetMapping(mappingId): Observable<any> {
+    this.endPoint = 'delete';
+    return this.put(mappingId);
+  }
+  
 }

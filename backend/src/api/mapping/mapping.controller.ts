@@ -16,4 +16,11 @@ export class MappingController {
     async getMapping(@Body() mappingData:any) {
         return this.service.getMappingOnId(mappingData);
     }
+
+    @Put('delete')
+    async delete(@Body() mappingId:string) {
+        return await this.service.deleteMapping(mappingId['deleteId']).then((response)=>{
+            return response;
+        }).catch(error => console.log(error));
+    }
 }
