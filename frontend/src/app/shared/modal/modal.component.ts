@@ -30,6 +30,7 @@ export class ModalComponent implements OnInit {
           this.placeList.splice(mapIndex, 1);
         } else {
           this.placeList = [];
+          this.dismiss();
         }
       }
     }, error => {
