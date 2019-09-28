@@ -23,4 +23,8 @@ export class MappingService {
             return response;
         });
     }
+
+    async deleteMapping(markerId) {
+        return await this.markerRepository.delete(markerId);
+    }
 }
