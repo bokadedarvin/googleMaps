@@ -23,21 +23,24 @@ export class UserDashboardPage implements OnInit {
   public noOfUsers: number; 
   public noOfMarkers: number; 
   public polyline: Array<any>;
+  searchData:any;
+
 
   constructor(
     private markerService: MarkerService,
     private mapsAPILoader: MapsAPILoader,
     private typeService: TypeService
-  ) {}
+  ) {
+    this.placeTypes = [];
+    this.zoom; 
+    this.latitude;
+    this.longitude;
+    this.searchData = {};
+  }
 
   ngOnInit() {
     //set google maps defaults
-    this.zoom; 
-    this.latitude;
-    this.longitude;  
-
     this.getPlaceTypes();
-    this.placeTypes = [];
     
     this.searchForm = new FormGroup({
       From: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z0-9 -.,]*$')]),
@@ -89,7 +92,6 @@ export class UserDashboardPage implements OnInit {
     this.checked = [];
   } 
 
-  searchData:any = {}
   searchRoute(){
     this.searchData = {
       from: this.searchForm.value.From,

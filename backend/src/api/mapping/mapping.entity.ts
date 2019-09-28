@@ -12,4 +12,10 @@ export class Mapping {
     @ManyToOne(type => Marker, marker => marker.id)
     @JoinColumn() // this decorator is optional for @ManyToOne, but required for @OneToOne
     to: Marker;
+    @Column({
+        nullable: false,
+        type: "double",
+    })
+    pathCost: number;
+    
 }

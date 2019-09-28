@@ -31,7 +31,6 @@ export class MarkerService {
     }
 
     async addMarkers(marker: Array<Marker>) {
-        console.log(marker);
         return await this.markerRepository.save(marker);
     }
 

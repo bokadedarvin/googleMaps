@@ -5,6 +5,7 @@ import { MarkerService } from 'src/app/services/marker.service';
 import { MappingService } from 'src/app/services/mapping.service';
 import { ModalController } from '@ionic/angular';
 import { ModalComponent } from '../../shared/modal/modal.component';
+import { GetPathCostService } from '../../services/get-path-cost.service';
 
 @Component({
   selector: 'app-places-mapping',
@@ -17,7 +18,13 @@ export class PlacesMappingPage implements OnInit {
   remainingMarkers: any;
   mapList: any;
 
-  constructor(private markerService: MarkerService, private mappingService: MappingService, private router: Router, public modalController: ModalController) { }
+  constructor(
+    private markerService: MarkerService,
+    private mappingService: MappingService,
+    private router: Router,
+    public modalController: ModalController,
+    private getPathCost: GetPathCostService,
+  ) { }
 
   public places: Array<any>;
   ngOnInit() {
@@ -70,9 +77,12 @@ export class PlacesMappingPage implements OnInit {
     let mapPlace = this.placeMappingForm.controls.ToPlace.value;
     let placeMapData = [];
     for (var i = 0; i < mapPlace.length; i++) {
+      const fromObj = this.markers[parseInt(this.placeMappingForm.controls.FromPlace.value)];
+      const toObj = this.remainingMarkers[parseInt(mapPlace[i])];
       placeMapData.push({
-        from: this.markers[parseInt(this.placeMappingForm.controls.FromPlace.value)],
-        to: this.remainingMarkers[parseInt(mapPlace[i])]
+        from: fromObj,
+        to: toObj,
+        pathCost: this.getPathCost.getDistanceFromLatLonInKm(fromObj, toObj),
       });
     }
     this.mappingService.submitMapping(placeMapData).subscribe((response) => {
