@@ -93,6 +93,7 @@ export class UserDashboardPage implements OnInit {
   } 
 
   searchRoute(){
+    console.log(this.searchForm);
     this.searchData = {
       from: this.searchForm.value.From,
       to: this.searchForm.value.To,

@@ -15,7 +15,7 @@ export class MarkerService extends ApiAbstractMethod implements AutoCompleteServ
   listLimit: number;
 
   labelAttribute = 'name';
-  formValueAttribute = 'id';
+  formValueAttribute = 'name';
 
   constructor(public http: HttpClient) {
     super(http);
