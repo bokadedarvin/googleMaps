@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-common-layout',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CommonLayoutComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) {}
   public appPages = [
     {
       title: 'Home',
@@ -54,12 +55,16 @@ export class CommonLayoutComponent implements OnInit {
     //   url: '/route-view',
     //   icon: 'eye'
     // },
-    {
-      title: 'Log-Out',
-      url: '/login',
-      icon: 'log-out'
-    }
+    // {
+    //   title: 'Log-Out',
+    //   url: '/login',
+    //   icon: 'log-out'
+    // }
   ];
   ngOnInit() {}
 
+  logout(){
+    localStorage.removeItem('userData');
+    this.router.navigate(['/login']);
+  }
 }

@@ -78,7 +78,7 @@ export class UserDashboardPage implements OnInit {
         errorMessage = this.searchForm.controls[formControl].hasError('pattern') ? 'please select valid starting place' : 'please select starting place';
         break;
       case 'To':
-          errorMessage = this.searchForm.controls[formControl].hasError('equalTo') ? 'Starting and ending place cant be same' : 'please select ending place';
+          errorMessage = this.searchForm.controls[formControl].hasError('equalTo') ? 'Starting and destination place cant be same' : 'please select destination place';
         break;
     }
     return errorMessage;
