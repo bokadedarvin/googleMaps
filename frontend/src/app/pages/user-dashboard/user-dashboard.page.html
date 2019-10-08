@@ -20,13 +20,13 @@
             </ion-input>
           </ion-item>
         -->
-          <ion-auto-complete [dataProvider]="markerService" formControlName="From" required></ion-auto-complete>
+          <ion-auto-complete [dataProvider]="markerService" [options]="{ placeholder : 'Starting place' }" formControlName="From" required></ion-auto-complete>
           <ion-label color="danger" *ngIf="searchForm.controls.From.invalid && searchForm.controls.From.dirty">{{getErrorMessage('From')}}</ion-label>
           <!-- <ion-item>
             <ion-label position="floating">To</ion-label>
             <ion-input name="To" type="text" formControlName="To" required></ion-input>
           </ion-item> -->
-          <ion-auto-complete [dataProvider]="markerService" formControlName="To" required></ion-auto-complete>
+          <ion-auto-complete [dataProvider]="markerService" [options]="{ placeholder : 'Destination place' }" formControlName="To" required></ion-auto-complete>
           <ion-label color="danger" *ngIf="searchForm.controls.To.invalid && searchForm.controls.To.dirty">{{getErrorMessage('To')}}</ion-label>
           <div class="ion-padding-top">
             <ion-list>

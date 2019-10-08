@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormGroup, Validators, FormControl, ValidatorFn, AbstractControl } from '@angular/forms';
 import { AgmCoreModule, MapsAPILoader } from '@agm/core';
 import { MarkerService } from 'src/app/services/marker.service';
 import { TypeService } from 'src/app/services/type.service';
@@ -38,13 +38,28 @@ export class UserDashboardPage implements OnInit {
     this.searchData = {};
   }
 
+  notEqualto(field_name): ValidatorFn {
+    return (control: AbstractControl): {[key: string]: any} => {
+    
+      let input = control.value;
+      
+      let isValid=control.root.value[field_name]==input
+      if(!isValid){
+        return null;
+      }
+      else{
+        return { 'equalTo': {isValid} }
+      }
+    };
+  }
+
   ngOnInit() {
     //set google maps defaults
     this.getPlaceTypes();
     
     this.searchForm = new FormGroup({
       From: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z0-9 -.,]*$')]),
-      To: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z0-9 -.,]*$')]),
+      To: new FormControl('', [Validators.required, this.notEqualto('From')]),
     }); 
   } 
 
@@ -60,10 +75,10 @@ export class UserDashboardPage implements OnInit {
     let errorMessage;
     switch (formControl) {
       case 'From':
-        errorMessage = this.searchForm.controls[formControl].hasError('pattern') ? 'Please enter valid From path' : 'Please enter From';
+        errorMessage = this.searchForm.controls[formControl].hasError('pattern') ? 'please select valid starting place' : 'please select starting place';
         break;
       case 'To':
-        errorMessage = this.searchForm.controls[formControl].hasError('pattern') ? 'Please enter valid To path' : 'Please enter To';
+          errorMessage = this.searchForm.controls[formControl].hasError('equalTo') ? 'Starting and ending place cant be same' : 'please select ending place';
         break;
     }
     return errorMessage;
@@ -93,7 +108,6 @@ export class UserDashboardPage implements OnInit {
   } 
 
   searchRoute(){
-    console.log(this.searchForm);
     this.searchData = {
       from: this.searchForm.value.From,
       to: this.searchForm.value.To,
