@@ -51,7 +51,9 @@ export class CommonLayoutComponent implements OnInit {
         icon: 'help-circle'
       }
     ]
-    if(JSON.parse( localStorage.getItem('userData') )[0].Role.roleName == 'customer'){
+    if(localStorage.getItem('userData') == null || localStorage.getItem('userData') == undefined ){
+      this.router.navigate(['/login']);
+    }else if(JSON.parse( localStorage.getItem('userData') )[0].Role.roleName == 'customer'){
       this.appPages = userPages;
     }else{
       this.appPages = adminPages;

@@ -11,7 +11,7 @@ import { UserGuardGuard } from './guard/user-guard/user-guard.guard';
 const routes: Routes = [
   {
     path: '',
-    canActivate: [UserGuardGuard],
+    canActivate: [CommonGuardGuard],
     component: CommonLayoutComponent,
     // data: { title: 'full Views' },
     children: CommonRoutes
