@@ -19,11 +19,11 @@ export class UserGuardGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    // if (this.cookieService.cookieCheck('userData')) {
-    //   return true;
-    // } else {
-    //   this.router.navigate(['/User-signup']);
-    // }
+    if (localStorage.getItem('userData')) {
+      return true;
+    } else {
+      this.router.navigate(['/register']);
+    }
     return true;
     // this.loadScriptService.loadScript('core', 'assets/js/core.js');
   }

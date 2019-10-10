@@ -6,11 +6,12 @@ import { AppComponent } from './app.component';
 import { FullLayoutRoutes } from './shared/routes/full-layout-routes';
 import { CommonLayoutComponent } from './layout/common-layout/common-layout.component';
 import { FullLayoutComponent } from './layout/full-layout/full-layout.component';
+import { UserGuardGuard } from './guard/user-guard/user-guard.guard';
 
 const routes: Routes = [
   {
     path: '',
-    canActivate: [CommonGuardGuard],
+    canActivate: [UserGuardGuard],
     component: CommonLayoutComponent,
     // data: { title: 'full Views' },
     children: CommonRoutes

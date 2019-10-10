@@ -41,16 +41,15 @@ export class LoginPage implements OnInit {
   userData:any = {}
   login(){
     (Object.keys(this.userData).length > 0 ) ? this.userService.login(this.userData).subscribe((response)=>{
-      response[0].roleName = "customer"
       localStorage.setItem('userData',JSON.stringify( response ));
-      if(response != "" && response[0].isActive && response[0].roleName == "customer" ){
+      if(response != "" && response[0].isActive && response[0].Role.roleName == "customer" ){
         this.router.navigate(['/user-dashboard']);
-      }else if(response != "" && response[0].isActive && response[0].roleName == "admin" ){
+      }else if(response != "" && response[0].isActive && response[0].Role.roleName == "admin" ){
           this.router.navigate(['/home']);
+      }else if( response == "" ){
+        alert('No user found');
       }else if( !response[0].isActive ){
         alert('User is not active');
-      }else{
-        alert('No user found');
       }
     }, error => {
       console.log('Please Try Again Later', error);
