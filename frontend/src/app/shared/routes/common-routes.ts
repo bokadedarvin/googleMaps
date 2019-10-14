@@ -3,11 +3,6 @@ import { CommonLayoutComponent } from 'src/app/layout/common-layout/common-layou
 
 export const CommonRoutes: Routes = [
   {
-    path: '',
-    redirectTo: 'home',
-    pathMatch: 'full'
-  },
-  {
     path: 'home',
     loadChildren: () => import('../../pages/home/home.module').then(m => m.HomePageModule)
   },

@@ -12,18 +12,19 @@ const routes: Routes = [
   {
     path: '',
     canActivate: [CommonGuardGuard],
-    component: CommonLayoutComponent,
-    // data: { title: 'full Views' },
-    children: CommonRoutes
-
-  },{
-    path: '',
-    canActivate: [CommonGuardGuard],
     component: FullLayoutComponent,
     // data: { title: 'full Views' },
     children: FullLayoutRoutes
 
   },
+  {
+    path: '',
+    canActivate: [UserGuardGuard],
+    component: CommonLayoutComponent,
+    // data: { title: 'full Views' },
+    children: CommonRoutes
+
+  }
   // { path: 'modal', loadChildren: './shared/modal/modal.module#ModalPageModule' },
   // { path: 'places-mapping', loadChildren: './pages/places-mapping/places-mapping.module#PlacesMappingPageModule' },
   // { path: 'feedback', loadChildren: './pages/feedback/feedback.module#FeedbackPageModule' },

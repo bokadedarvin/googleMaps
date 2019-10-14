@@ -20,17 +20,17 @@ export class CommonGuardGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    // if (localStorage.getItem('userData') !== null && localStorage.getItem('userData') !== '') {
-    //   let userData = JSON.parse(localStorage.getItem('userData'));
-    //   if (userData !== null && userData !== '') {
-    //     if (userData[0].Role.roleName == 'customer' ) {
-    //       this.router.navigate(['/login']);
-    //       return true;
-    //     }
-    //   }
-    // }
-    // this.router.navigate(['/login']);
-    // // this.loadScriptService.loadScript('core', 'assets/js/core.js');
-    return true;
+      if (localStorage.getItem('userData') !== null && localStorage.getItem('userData') !== '') {
+        let userData = JSON.parse(localStorage.getItem('userData'));
+        if(userData[0].isActive && userData[0].Role.roleName == "customer" ){
+          this.router.navigate(['/user-dashboard']);
+          return true;
+        }else if(userData[0].isActive && userData[0].Role.roleName == "admin" ){
+            this.router.navigate(['/home']);
+            return true;
+        }
+      }else{
+      return true;
+    }
   }
 }

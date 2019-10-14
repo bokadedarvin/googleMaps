@@ -3,11 +3,6 @@ import { FullLayoutComponent } from 'src/app/layout/full-layout/full-layout.comp
 
 export const FullLayoutRoutes: Routes = [
   {
-    path: '',
-    redirectTo: 'login',
-    pathMatch: 'full'
-  },
-  {
     path: 'login',
     loadChildren: () => import('../../pages/login/login.module').then(m => m.LoginPageModule)
   },
