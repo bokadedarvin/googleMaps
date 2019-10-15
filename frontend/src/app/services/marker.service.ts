@@ -58,4 +58,9 @@ export class MarkerService extends ApiAbstractMethod implements AutoCompleteServ
     this.endPoint = 'getMarkerList';
     return this.get();
   }
+
+  getAdminDashboard(): Observable<any> {
+    this.endPoint = 'getAdminDashboard';
+    return this.get();
+  }
 }

@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { Marker } from './marker.entity';
 import {getConnection} from "typeorm";
 import { response } from 'express';
+import { User } from './../user/user.entity';
 import {Like} from "typeorm";
 import  * as Graph from "node-dijkstra";
 import { MappingService } from '../mapping/mapping.service';
@@ -11,7 +12,7 @@ import { MappingService } from '../mapping/mapping.service';
 export class MarkerService {
     routeJson = {};
     allMarkerData = [];
-    constructor(@InjectRepository(Marker) private markerRepository: Repository<Marker>, private mappingService: MappingService) {
+    constructor(@InjectRepository(Marker) private markerRepository: Repository<Marker>,@InjectRepository(User) private usersRepository: Repository<User>, private mappingService: MappingService) {
         this.markerRepository.find({
             relations: [ 'Type' ]
         }).then((markerResponse) => {
@@ -34,6 +35,21 @@ export class MarkerService {
             relations: [ 'Type' ]
         });
     }
+
+    async getAdminDashboard(): Promise<any> {
+        let markerList = {};
+        let userList = {};
+        markerList = await this.markerRepository.findAndCount({
+            relations: [ 'Type' ]
+        });
+        userList = await this.usersRepository.findAndCount();
+        let dashboardData = {
+            'markers':markerList,
+            'users':userList,
+        }
+        return dashboardData;
+    }
+    
     
     async searchMarkers(searchedKey:[][]) {
         let keyword = searchedKey[0]['keyword'];

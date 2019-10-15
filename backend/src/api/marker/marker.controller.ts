@@ -40,6 +40,11 @@ export class MarkerController {
         return this.service.getMarkerList();
     }
 
+    @Get('getAdminDashboard')
+    async getAdminDashboard() {
+        return this.service.getAdminDashboard();
+    }
+
     @Post('search')
     async search(@Body() searchedData) {
         return this.service.searchMarkers(searchedData);

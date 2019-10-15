@@ -42,10 +42,10 @@
       </ion-card-header>
       <ion-card-content>
         <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
-          <agm-marker *ngFor="let place of polyline; let i = index"
-              [latitude]="place.latitude" 
-              [longitude]="place.longitude">
-              <agm-info-window>{{i+1}} - {{place | json}}</agm-info-window>
+          <agm-marker *ngFor="let place of markers; let i = index"
+              [latitude]="place.lat" 
+              [longitude]="place.long">
+              <agm-info-window>{{i+1}} - {{place.name}}-{{place.description}}</agm-info-window>
           </agm-marker>
         </agm-map>
       </ion-card-content>
