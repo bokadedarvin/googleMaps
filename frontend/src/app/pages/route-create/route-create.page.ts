@@ -30,6 +30,7 @@ export class RouteCreatePage implements OnInit {
       placeName: '',
       description: '',
       placeType: '',
+      wheelChair: '',
     };
     this.agmMapShow = false;
   }
@@ -49,6 +50,7 @@ export class RouteCreatePage implements OnInit {
       Name: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z0-9 -.,]*$')]),
       Description: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z0-9 -.,]*$')]),
       Type: new FormControl('', [Validators.required]),
+      WheelChair: new FormControl(''),
     });
   }
 
@@ -75,19 +77,20 @@ export class RouteCreatePage implements OnInit {
     }
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
-        this.addMarkerToMap(position.coords.latitude, position.coords.longitude, this.placeCreateForm.value.Name, this.placeCreateForm.value.Description, this.placeCreateForm.value.Type)
+        this.addMarkerToMap(position.coords.latitude, position.coords.longitude, this.placeCreateForm.value.Name, this.placeCreateForm.value.Description, this.placeCreateForm.value.Type, this.placeCreateForm.value.WheelChair)
         this.placeCreateForm.reset();
       });
     }
   }
 
-  addMarkerToMap(lat, lng, name, desc, type) {
+  addMarkerToMap(lat, lng, name, desc, type, wheelChair) {
     this.marker = {
       lat: lat,
       long: lng,
       name: name,
       description: desc,
       Type: type,
+      WheelChair: wheelChair,
     }
     this.places.push(this.marker);
   }
@@ -114,7 +117,7 @@ export class RouteCreatePage implements OnInit {
       this.markerData.placeName = this.placeData['name'];
       this.markerData.description = this.placeData['description'];
       this.markerData.placeType = placeIndex;
-      this.addMarkerToMap(this.placeData['lat'], this.placeData['long'], this.placeData['name'], this.placeData['description'], this.placeData['Type']['id']);
+      this.addMarkerToMap(this.placeData['lat'], this.placeData['long'], this.placeData['name'], this.placeData['description'], this.placeData['Type']['id'], this.placeData['Type']['wheelChair']);
     }
   }
 
@@ -135,6 +138,7 @@ export class RouteCreatePage implements OnInit {
         this.places[0].id = this.placeData['id'];
         this.places[0].name = this.markerData.placeName;
         this.places[0].description = this.markerData.description;
+        this.places[0].wheelChair = this.markerData.wheelChair;
         this.places[0].Type = this.placeTypes[parseInt(this.markerData.placeType.toString())];
         this.markerService.updateMarker(this.places).subscribe((response) => {
           if (parseInt({ ...{ ...response }.raw }.affectedRows) > 0) {

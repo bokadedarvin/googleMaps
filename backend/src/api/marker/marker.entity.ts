@@ -32,6 +32,12 @@ export class Marker {
     })
     long: number; 
 
+    @Column({
+        nullable: false,
+        type: "boolean",
+    })
+    WheelChair: boolean; 
+
     @ManyToOne(type => Type, type => type.id)
     @JoinColumn() // this decorator is optional for @ManyToOne, but required for @OneToOne
     Type: Type;

@@ -60,6 +60,7 @@ export class UserDashboardPage implements OnInit {
     this.searchForm = new FormGroup({
       From: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z0-9 -.,]*$')]),
       To: new FormControl('', [Validators.required, this.notEqualto('From')]),
+      WheelChair: new FormControl(''),
     }); 
   } 
 
@@ -111,7 +112,8 @@ export class UserDashboardPage implements OnInit {
     this.searchData = {
       from: this.searchForm.value.From,
       to: this.searchForm.value.To,
-      types: this.checked
+      types: this.checked,
+      WheelChair: this.searchForm.value.WheelChair
     }
     this.markerService.getRoute(this.searchData).subscribe((response) => {
       if( response ){

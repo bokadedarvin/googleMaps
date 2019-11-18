@@ -33,6 +33,10 @@
           <ion-select-option *ngFor="let placeType of placeTypes; index as i" [value]="i">{{placeType.name}}</ion-select-option>
         </ion-select>
       </ion-item> 
+      <ion-item>
+        <ion-label position="stacked">Wheel Chair?</ion-label>
+        <ion-checkbox name="WheelChair" formControlName="WheelChair" [(ngModel)]="markerData.WheelChair"></ion-checkbox>
+      </ion-item> 
     </ion-list>
     <div class="ion-margin actionButton">
       <ion-label color="danger" *ngIf="placeCreateForm.controls.Type.invalid && placeCreateForm.controls.Type.dirty">{{getErrorMessage('Type')}}</ion-label>
