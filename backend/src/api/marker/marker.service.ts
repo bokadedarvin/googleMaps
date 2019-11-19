@@ -7,33 +7,47 @@ import { response } from 'express';
 import { User } from './../user/user.entity';
 import {Like} from "typeorm";
 import  * as Graph from "node-dijkstra";
+import  * as NgGraphPath from "ngraph.graph";
 import { MappingService } from '../mapping/mapping.service';
 @Injectable()
 export class MarkerService {
     routeJson = {};
+    wheelchairJson = {};
     allMarkerData = [];
     constructor(@InjectRepository(Marker) private markerRepository: Repository<Marker>,@InjectRepository(User) private usersRepository: Repository<User>, private mappingService: MappingService) {
-        this.markerRepository.find({
-            relations: [ 'Type' ]
-        }).then((markerResponse) => {
-             markerResponse.forEach((response) => {
-                this.allMarkerData[response.name] = response;
-                this.mappingService.getMappingOnId(response).then((mappingResponse) => {
-                    const setMappingObj = {}
-                    mappingResponse.forEach((eachResponseObj) => {
-                        const mappingToObj = eachResponseObj.to;
-                        setMappingObj[mappingToObj.name] = eachResponseObj.pathCost;
-                    });
-                    this.routeJson[response.name] = setMappingObj;
-                });
-            });
-        });
-     }
+        this.routeJson = this.getAllList(false);
+        this.wheelchairJson = this.getAllList(true);
+    }
 
     async getMarkerList(): Promise<Marker[]> {
         return await this.markerRepository.find({
             relations: [ 'Type' ]
         });
+    }
+
+    getAllList(WheelChair) {
+        let route = {};
+        this.markerRepository.find({
+            relations: [ 'Type' ],
+            where: [{ "WheelChair": WheelChair }]
+        }).then((markerResponse) => {
+            if(markerResponse !== null && markerResponse.length > 0) {
+                markerResponse.forEach((response) => {
+                   this.allMarkerData[response.name] = response;
+                   this.mappingService.getMappingOnId(response).then((mappingResponse) => {
+                       const setMappingObj = {}
+                       if(mappingResponse !== null && mappingResponse.length > 0) {
+                           mappingResponse.forEach((eachResponseObj) => {
+                               const mappingToObj = eachResponseObj.to;
+                               setMappingObj[mappingToObj.name] = eachResponseObj.pathCost;
+                           });
+                           route[response.name] = setMappingObj;
+                       }
+                   });
+               });
+            }
+        });
+        return route;
     }
 
     async getAdminDashboard(): Promise<any> {
@@ -61,14 +75,21 @@ export class MarkerService {
     }
     
     async getRoute(searchedData) {
-        const routeGraph = new Graph(this.routeJson);
+        let routeGraph;
+        if(!searchedData.WheelChair) {
+            routeGraph = new Graph(this.routeJson);
+        } else {
+            routeGraph = new Graph(this.wheelchairJson);
+        }
         const pathRoute = routeGraph.path(searchedData.from, searchedData.to);
         let pathToRoute = [];
-        await pathRoute.forEach((routeObj, index)=>{
-            const getMarkerData = this.allMarkerData[routeObj];
-            getMarkerData['position'] = index;
-            pathToRoute.push(getMarkerData);
-        })
+        if(pathRoute !== null && pathRoute.length > 0) {
+            await pathRoute.forEach((routeObj, index)=>{
+                const getMarkerData = this.allMarkerData[routeObj];
+                getMarkerData['position'] = index;
+                pathToRoute.push(getMarkerData);
+            })
+        }
         return pathToRoute;
     }
 

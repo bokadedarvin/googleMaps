@@ -6,11 +6,11 @@ import { MarkerController } from './marker.controller';
 import { MappingService } from '../mapping/mapping.service';
 import { Mapping } from '../mapping/mapping.entity';
 import { User } from '../user/user.entity';
-import { HistoryService } from '../history/history.service';
+// import { HistoryService } from '../history/history.service';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Marker]), TypeOrmModule.forFeature([Mapping]), TypeOrmModule.forFeature([User]) ],
-  providers: [MarkerService, MappingService,HistoryService],
+  providers: [MarkerService, MappingService],
   controllers: [MarkerController]
 })
 export class MarkerModule {}
